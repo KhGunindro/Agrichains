@@ -12,7 +12,6 @@ const App = () => {
   // Retrieve theme preference from localStorage or default to light mode
   const [darkMode, setDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
-    // Check if the saved theme is valid JSON (true or false)
     return !!(savedTheme === "true"); // Default to light mode if no preference is found
   });
 
@@ -89,7 +88,7 @@ const App = () => {
             element={
               <>
                 {/* Welcome Text and Image Section */}
-                <div className="flex-1 w-full max-w-screen mx-auto px-15 overflow-hidden mt-22 sm:mt-30">
+                <div className="flex-1 w-full max-w-screen mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden mt-5 sm:mt-20">
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -97,17 +96,20 @@ const App = () => {
                     className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16"
                   >
                     {/* Welcome Text */}
-                    <div className="text-center mx-[-15%] md:text-left md:w-1/2 md:mx-20">
+                    <div className="text-left mt-15 md:text-left md:w-1/2 md:pl-10 lg:pl-20">
+                      {/* Heading */}
                       <h1
-                        className={`text-3xl md:text-5xl font-bold mb-4 md:mb-6 ${
+                        className={`text-[25px] sm:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight ${
                           darkMode ? "text-white" : "text-gray-900"
                         }`}
                       >
                         Welcome to{" "}
                         <span className="text-green-600">AgriChains</span>
                       </h1>
+
+                      {/* Description */}
                       <p
-                        className={`text-[13px] md:text-xl max-w-[95%] mx-auto md:mx-0 ${
+                        className={`text-sm text-left sm:text-base lg:text-lg max-w-[90%] md:max-w-[80%] md:mx-0 ${
                           darkMode ? "text-gray-300" : "text-gray-600"
                         }`}
                       >
@@ -115,51 +117,60 @@ const App = () => {
                         Follow the steps below to get started and explore the
                         platform's features.
                       </p>
+
+                      {/* Tagline */}
+                      <p
+                        className={`mt-5 text-sm sm:text-[16px] text-left italic ${
+                          darkMode ? "text-gray-400" : "text-gray-500"
+                        }`}
+                      >
+                        — Cultivating trust, growing transparency
+                      </p>
                     </div>
 
-                    {/* Image */}
-                    <div className="md:w-1/2 flex justify-center">
+                    {/* Image - Hidden on Mobile */}
+                    <div className="hidden md:flex md:w-1/2 justify-center items-center mt-10 md:mt-0">
                       <img
                         src={heroImage}
                         alt="AgriChains Hero"
-                        className="w-[30%] h-auto object-contain rounded transition-transform duration-300 hover:rotate-12 group cursor-pointer"
+                        className="w-[40%] md:w-[22%] h-auto object-contain rounded-lg transition-transform duration-300 hover:rotate-12 group cursor-pointer"
                       />
                     </div>
                   </motion.div>
 
                   {/* Tutorial Components */}
                   <Container
-                    image="image1.jpg"
+                    image="https://cdn.pixabay.com/photo/2021/05/26/13/49/bitcoin-6285239_1280.jpg"
                     text="Step 1: Go to the website and sign up."
                     position="left"
                     darkMode={darkMode}
                   />
                   <Container
-                    image="image2.jpg"
+                    image="https://cdn.pixabay.com/photo/2018/01/18/07/31/bitcoin-3089728_960_720.jpg"
                     text="Step 2: Explore the features and tools available."
                     position="right"
                     darkMode={darkMode}
                   />
                   <Container
-                    image="image3.jpg"
+                    image="https://cdn.pixabay.com/photo/2022/01/14/07/48/digitization-6936701_1280.jpg"
                     text="Step 3: Customize your profile settings."
                     position="left"
                     darkMode={darkMode}
                   />
                   <Container
-                    image="image4.jpg"
+                    image="https://cdn.pixabay.com/photo/2018/03/07/19/41/blockchain-3206918_1280.png"
                     text="Step 4: Start using the platform to achieve your goals."
                     position="right"
                     darkMode={darkMode}
                   />
                   <Container
-                    image="image5.jpg"
+                    image="https://cdn.pixabay.com/photo/2021/10/09/12/57/world-6694125_960_720.jpg"
                     text="Step 5: Connect with other users and collaborate."
                     position="left"
                     darkMode={darkMode}
                   />
                   <Container
-                    image="image6.jpg"
+                    image="https://cdn.pixabay.com/photo/2022/01/17/09/01/binary-6944162_1280.jpg"
                     text="Step 6: Enjoy the full experience of the platform."
                     position="right"
                     darkMode={darkMode}
@@ -171,7 +182,7 @@ const App = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="flex justify-center my-5 sm:my-16" // Reduced top margin for mobile (my-8), larger margin for desktop (sm:my-16)
+                  className="flex justify-center sm:my-24 sm:mt-10"
                 >
                   <a
                     href="https://agrichains.tech/"
@@ -180,8 +191,7 @@ const App = () => {
                     className="flex items-center gap-1 px-4 py-4 sm:px-5 sm:py-5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:bg-gradient-to-r hover:from-green-600 hover:to-green-800 text-xl sm:text-3xl font-semibold drop-shadow-lg transition-all duration-300 hover:scale-105"
                   >
                     Go To DApp
-                    <img src={Arrow} className="w-4 h-4 sm:w-5 sm:h-5" />{" "}
-                    {/* Adjusted icon size for mobile */}
+                    <img src={Arrow} className="w-4 h-4 sm:w-5 sm:h-5" />
                   </a>
                 </motion.div>
 
@@ -191,10 +201,10 @@ const App = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="text-center my-24" // Increased top margin (my-24)
+                    className="text-center mt-40"
                   >
                     <h2
-                      className={`text-3xl md:text-4xl font-bold mb-8 ${
+                      className={`text-2xl md:text-4xl font-bold mb-4 sm:mb-8 ${
                         darkMode ? "text-white" : "text-gray-900"
                       }`}
                     >
@@ -208,10 +218,7 @@ const App = () => {
             }
           />
           {/* Contact Page Route */}
-          <Route
-            path="/contact"
-            element={<Contact darkMode={darkMode} />} // Pass darkMode as a prop
-          />
+          <Route path="/contact" element={<Contact darkMode={darkMode} />} />
         </Routes>
       </div>
     </Router>

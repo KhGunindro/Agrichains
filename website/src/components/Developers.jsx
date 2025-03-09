@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react"; // Add useEffect
+import React, { useRef, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules"; // Import Autoplay module
 import "swiper/css";
@@ -70,7 +70,7 @@ const Developers = () => {
           delay: 4000, // Auto-slide every 4 seconds
           disableOnInteraction: false, // Continue autoplay even after user interaction
         }}
-        speed={1200} // Slower slide transition (1000ms)
+        speed={1200} // Slower slide transition (1200ms)
         spaceBetween={30}
         slidesPerView={1}
         loop={true}
@@ -84,17 +84,17 @@ const Developers = () => {
               <img
                 src={developer.image}
                 alt={developer.name}
-                className="w-32 h-32 md:w-48 md:h-48 rounded-full object-cover mb-4" // Larger image on desktop
+                className="w-28 h-28 md:w-48 md:h-48 rounded-full object-cover mb-4"
               />
-              <h3
-                className="text-3
-
-              xl font-bold"
-              >
+              <h3 className="text-xl md:text-3xl font-bold text-white">
                 {developer.name}
               </h3>
-              <p className="text-lg">{developer.role}</p>
-              <p className="mt-2 italic">"{developer.description}"</p>
+              <p className="text-sm md:text-lg text-gray-600 dark:text-white">
+                {developer.role}
+              </p>
+              <p className="text-sm md:text-base italic text-gray-500 dark:text-gray-400 mt-5">
+                "{developer.description}"
+              </p>
             </div>
           </SwiperSlide>
         ))}
@@ -103,11 +103,11 @@ const Developers = () => {
       {/* Custom Navigation Arrows */}
       <div
         ref={nextArrowRef}
-        className="custom-next absolute top-1/2 right-0 transform -translate-y-1/2 z-10 cursor-pointer bg-white/80 p-3 rounded-full shadow-lg hover:bg-white transition-all duration-300 hover:scale-120" // Added hover:scale-110 and duration-300
+        className="custom-next absolute top-1/2 right-2 sm:right-0 transform -translate-y-1/2 z-10 cursor-pointer bg-white/80 p-2 sm:p-3 rounded-full shadow-lg hover:bg-white transition-all duration-300 hover:scale-110"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-gray-700"
+          className="h-5 w-5 sm:h-6 sm:w-6 text-gray-700"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -122,11 +122,11 @@ const Developers = () => {
       </div>
       <div
         ref={prevArrowRef}
-        className="custom-prev absolute top-1/2 left-0 transform -translate-y-1/2 z-10 cursor-pointer bg-white/80 p-3 rounded-full shadow-lg hover:bg-white transition-all duration-300 hover:scale-120" // Added hover:scale-110 and duration-300
+        className="custom-prev absolute top-1/2 left-2 sm:left-0 transform -translate-y-1/2 z-10 cursor-pointer bg-white/80 p-2 sm:p-3 rounded-full shadow-lg hover:bg-white transition-all duration-300 hover:scale-110"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-gray-700"
+          className="h-5 w-5 sm:h-6 sm:w-6 text-gray-700"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
