@@ -59,21 +59,21 @@ const Profile = () => {
     switch(role?.toLowerCase()) {
       case 'farmer':
         return [
-          { emoji: '🌱', functionName: 'plantProduct', description: 'Marks a product as planted' },
-          { emoji: '🌾', functionName: 'harvestProduct', description: 'Marks a product as harvested' }
+          { emoji: '🌱', functionName: 'Plant Product', description: 'Marks a product as planted' },
+          { emoji: '🌾', functionName: 'Harvest Product', description: 'Marks a product as harvested' }
         ];
       case 'processor':
         return [
-          { emoji: '🏭', functionName: 'processProduct', description: 'Marks a product as processed' }
+          { emoji: '🏭', functionName: 'Process Product', description: 'Marks a product as processed' }
         ];
       case 'distributor':
         return [
-          { emoji: '🚚', functionName: 'distributeProduct', description: 'Marks a product as distributed' }
+          { emoji: '🚚', functionName: 'Distribute Product', description: 'Marks a product as distributed' }
         ];
       case 'retailer':
         return [
-          { emoji: '📦', functionName: 'receiveProduct', description: 'Marks a product as received by a retailer' },
-          { emoji: '💰', functionName: 'sellProduct', description: 'Marks a product as sold' }
+          { emoji: '📦', functionName: 'Receive Product', description: 'Marks a product as received by a retailer' },
+          { emoji: '💰', functionName: 'Sell Product', description: 'Marks a product as sold' }
         ];
       case 'owner':
         return [
