@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useWeb3 } from '../contexts/Web3Context';
-import ProductCard from '../components/ProductCard';
+import DashboardCard from '../components/DashboardCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
@@ -98,13 +98,12 @@ const Dashboard = () => {
           No products found in the supply chain
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           {products.map(product => (
-            <ProductCard 
+            <DashboardCard 
               key={product.id}
               product={{
                 ...product,
-                // Convert numeric stage to string representation
                 stage: product.stage.replace('Stage.', '')
               }}
             />
