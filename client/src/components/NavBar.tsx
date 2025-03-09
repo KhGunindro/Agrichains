@@ -2,7 +2,7 @@ import React from 'react';
 import { useWeb3 } from "../contexts/Web3Context";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { ChevronDown, Menu, Sprout, LayoutDashboard, Package, History, User, Settings,UserPen } from "lucide-react";
+import { ChevronDown, Menu, Sprout, LayoutDashboard, Package, History, User,UserPen } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -131,10 +131,6 @@ const Navbar = () => {
                 <DropdownMenuItem className="flex items-center gap-2">
                   <User className="w-4 h-4" />
                   <Link to="/profile" className="flex-1">Profile</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center gap-2">
-                  <Settings className="w-4 h-4" />
-                  <Link to="/settings" className="flex-1">Settings</Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem 
