@@ -1,21 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { FaSun, FaMoon, FaUsers } from "react-icons/fa";
-import DeveloperPopup from "./components/DeveloperPopup";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Container from "./components/Container";
-import { Sprout } from "lucide-react";
-import heroImage from "./assets/cute_plant.png"; // Import the image
+import heroImage from "./assets/cute_plant.png";
+import Developers from "./components/Developers";
+import Navbar from "./components/Navbar";
+import Contact from "./components/Contact";
+import Arrow from "./assets/arrow_right_up.png";
 
 const App = () => {
-  const [darkMode, setDarkMode] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
+  // Retrieve theme preference from localStorage or default to light mode
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    // Check if the saved theme is valid JSON (true or false)
+    return !!(savedTheme === "true"); // Default to light mode if no preference is found
+  });
+
+  const [lastScrollY, setLastScrollY] = useState(0); // Track last scroll position
+  const [visible, setVisible] = useState(true); // Control navbar visibility
+
+  // Ref for the developer section
+  const developersRef = useRef(null);
+
+  // Save theme preference to localStorage whenever darkMode changes
+  useEffect(() => {
+    localStorage.setItem("theme", darkMode.toString()); // Save as a string ("true" or "false")
+  }, [darkMode]);
 
   const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
+    setDarkMode((prevMode) => !prevMode); // Toggle dark mode
   };
 
   const togglePopup = () => {
-    setShowPopup(!showPopup);
+    // Scroll to the developer section
+    if (developersRef.current) {
+      developersRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   // Function to scroll to the top of the page
@@ -26,153 +46,175 @@ const App = () => {
     });
   };
 
+  // Handle scroll event
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY) {
+        // Scrolling down
+        setVisible(false);
+      } else {
+        // Scrolling up
+        setVisible(true);
+      }
+
+      setLastScrollY(currentScrollY); // Update last scroll position
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
   return (
-    <div
-      className={`min-h-screen flex flex-col ${
-        darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
-      }`}
-    >
-      {/* Navbar */}
-      <nav
-        className={`fixed top-0 left-0 right-0 p-6 flex justify-between items-center ${
-          darkMode ? "bg-gray-800/100" : "bg-white/100"
-        } drop-shadow-lg z-50`}
+    <Router>
+      <div
+        className={`min-h-screen flex flex-col ${
+          darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
+        }`}
       >
-        <div className="flex items-center group">
-          <Sprout className="h-6 w-6 text-green-600 transition-transform duration-300 group-hover:rotate-12" />
-          <span
-            className={`text-2xl font-bold bg-clip-text ml-2 ${
-              darkMode ? "text-white" : "text-black"
-            } cursor-pointer`} // Add cursor-pointer for better UX
-            onClick={scrollToTop} // Add onClick event to scroll to the top
-          >
-            AgriChains
-          </span>
-        </div>
-        <div className="flex items-center space-x-4">
-          <button
-            onClick={togglePopup}
-            className={`p-2 rounded-full ${
-              darkMode
-                ? "hover:bg-white hover:text-black" // White background, black text in dark mode
-                : "hover:bg-gray-700 hover:text-white" // Default hover styles in light mode
-            }`}
-          >
-            <FaUsers className="text-xl" />
-          </button>
-          <button
-            onClick={toggleDarkMode}
-            className={`p-2 rounded-full ${
-              darkMode
-                ? "hover:bg-white hover:text-black" // White background, black text in dark mode
-                : "hover:bg-gray-700 hover:text-white" // Default hover styles in light mode
-            }`}
-          >
-            {darkMode ? (
-              <FaSun className="text-xl" />
-            ) : (
-              <FaMoon className="text-xl" />
-            )}
-          </button>
-        </div>
-      </nav>
+        {/* Navbar */}
+        <Navbar
+          darkMode={darkMode}
+          toggleDarkMode={toggleDarkMode}
+          togglePopup={togglePopup}
+          scrollToTop={scrollToTop}
+          visible={visible}
+        />
 
-      {/* Developer Popup */}
-      {showPopup && <DeveloperPopup onClose={togglePopup} />}
+        {/* Routes */}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                {/* Welcome Text and Image Section */}
+                <div className="flex-1 w-full max-w-screen mx-auto px-15 overflow-hidden mt-22 sm:mt-30">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16"
+                  >
+                    {/* Welcome Text */}
+                    <div className="text-center mx-[-15%] md:text-left md:w-1/2 md:mx-20">
+                      <h1
+                        className={`text-3xl md:text-5xl font-bold mb-4 md:mb-6 ${
+                          darkMode ? "text-white" : "text-gray-900"
+                        }`}
+                      >
+                        Welcome to{" "}
+                        <span className="text-green-600">AgriChains</span>
+                      </h1>
+                      <p
+                        className={`text-[13px] md:text-xl max-w-[95%] mx-auto md:mx-0 ${
+                          darkMode ? "text-gray-300" : "text-gray-600"
+                        }`}
+                      >
+                        Discover the future of agriculture with AgriChains.
+                        Follow the steps below to get started and explore the
+                        platform's features.
+                      </p>
+                    </div>
 
-      {/* Welcome Text and Image Section */}
-      <div className="flex-1 w-full max-w-screen mx-auto px-15 overflow-hidden mt-35">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16" // Flex layout for text and image
-        >
-          {/* Welcome Text */}
-          <div className="text-center md:text-left md:w-1/2 mx-20">
-            <h1
-              className={`text-5xl font-bold mb-6 ${
-                darkMode ? "text-white" : "text-gray-900"
-              }`}
-            >
-              Welcome to <span className="text-green-600">AgriChains</span>
-            </h1>
-            <p
-              className={`text-xl ${
-                darkMode ? "text-gray-300" : "text-gray-600"
-              }`}
-            >
-              Discover the future of agriculture with AgriChains. Follow the
-              steps below to get started and explore the platform's features.
-            </p>
-          </div>
+                    {/* Image */}
+                    <div className="md:w-1/2 flex justify-center">
+                      <img
+                        src={heroImage}
+                        alt="AgriChains Hero"
+                        className="w-[30%] h-auto object-contain rounded transition-transform duration-300 hover:rotate-12 group cursor-pointer"
+                      />
+                    </div>
+                  </motion.div>
 
-          {/* Image */}
-          <div className="md:w-1/2 flex justify-center">
-            <img
-              src={heroImage} // Use the imported image
-              alt="AgriChains Hero"
-              className="w-[30%] h-auto object-contain rounded-4xl transition-transform duration-300 hover:rotate-12 group cursor-pointer" // Add hover animation directly to the image
-            />
-          </div>
-        </motion.div>
+                  {/* Tutorial Components */}
+                  <Container
+                    image="image1.jpg"
+                    text="Step 1: Go to the website and sign up."
+                    position="left"
+                    darkMode={darkMode}
+                  />
+                  <Container
+                    image="image2.jpg"
+                    text="Step 2: Explore the features and tools available."
+                    position="right"
+                    darkMode={darkMode}
+                  />
+                  <Container
+                    image="image3.jpg"
+                    text="Step 3: Customize your profile settings."
+                    position="left"
+                    darkMode={darkMode}
+                  />
+                  <Container
+                    image="image4.jpg"
+                    text="Step 4: Start using the platform to achieve your goals."
+                    position="right"
+                    darkMode={darkMode}
+                  />
+                  <Container
+                    image="image5.jpg"
+                    text="Step 5: Connect with other users and collaborate."
+                    position="left"
+                    darkMode={darkMode}
+                  />
+                  <Container
+                    image="image6.jpg"
+                    text="Step 6: Enjoy the full experience of the platform."
+                    position="right"
+                    darkMode={darkMode}
+                  />
+                </div>
 
-        {/* Tutorial Components */}
-        <Container
-          image="image1.jpg"
-          text="Step 1: Go to the website and sign up."
-          position="left"
-          darkMode={darkMode}
-        />
-        <Container
-          image="image2.jpg"
-          text="Step 2: Explore the features and tools available."
-          position="right"
-          darkMode={darkMode}
-        />
-        <Container
-          image="image3.jpg"
-          text="Step 3: Customize your profile settings."
-          position="left"
-          darkMode={darkMode}
-        />
-        <Container
-          image="image4.jpg"
-          text="Step 4: Start using the platform to achieve your goals."
-          position="right"
-          darkMode={darkMode}
-        />
-        <Container
-          image="image5.jpg"
-          text="Step 5: Connect with other users and collaborate."
-          position="left"
-          darkMode={darkMode}
-        />
-        <Container
-          image="image6.jpg"
-          text="Step 6: Enjoy the full experience of the platform."
-          position="right"
-          darkMode={darkMode}
-        />
+                {/* Navigate Button */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="flex justify-center my-5 sm:my-16" // Reduced top margin for mobile (my-8), larger margin for desktop (sm:my-16)
+                >
+                  <a
+                    href="https://agrichains.tech/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 px-4 py-4 sm:px-5 sm:py-5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:bg-gradient-to-r hover:from-green-600 hover:to-green-800 text-xl sm:text-3xl font-semibold drop-shadow-lg transition-all duration-300 hover:scale-105"
+                  >
+                    Go To DApp
+                    <img src={Arrow} className="w-4 h-4 sm:w-5 sm:h-5" />{" "}
+                    {/* Adjusted icon size for mobile */}
+                  </a>
+                </motion.div>
+
+                {/* Developer Carousel */}
+                <div ref={developersRef}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="text-center my-24" // Increased top margin (my-24)
+                  >
+                    <h2
+                      className={`text-3xl md:text-4xl font-bold mb-8 ${
+                        darkMode ? "text-white" : "text-gray-900"
+                      }`}
+                    >
+                      Meet the <span className="text-green-600">FUTURE</span>{" "}
+                      team
+                    </h2>
+                  </motion.div>
+                  <Developers />
+                </div>
+              </>
+            }
+          />
+          {/* Contact Page Route */}
+          <Route
+            path="/contact"
+            element={<Contact darkMode={darkMode} />} // Pass darkMode as a prop
+          />
+        </Routes>
       </div>
-
-      {/* Navigate Button */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="flex justify-center my-16"
-      >
-        <a
-          href="https://agrichains.tech/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-8 py-4 bg-green-600 text-white rounded-lg hover:bg-green-800 text-lg font-semibold drop-shadow-lg transition-transform duration-300 hover:scale-105"
-        >
-          Get Started
-        </a>
-      </motion.div>
-    </div>
+    </Router>
   );
 };
 
