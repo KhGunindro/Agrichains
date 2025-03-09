@@ -4,6 +4,7 @@ import { Toaster } from 'sonner'; // Import Sonner's Toaster
 import Navbar from './components/NavBar.tsx';
 import Dashboard from './pages/Dashboard';
 import RolesManagement from './pages/RoleManagement';
+import Profile from './pages/Profile.tsx';
 import Products from './pages/Products';
 import Transactions from './pages/Transactions';
 import { Card } from '@/components/ui/card';
@@ -25,6 +26,7 @@ function App() {
                 <Route path="/products" element={<Products />} />
                 <Route path="/transactions" element={<Transactions />} />
                 <Route path="/roles" element={<RolesManagement />} />
+                <Route path="/Profile" element={<Profile/>} />
               </Routes>
             </main>
 
