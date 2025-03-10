@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Container from "./components/Container";
+import Container from "./components/Container.component";
 import heroImage from "./assets/cute_plant.png";
-import Developers from "./components/Developers";
-import Navbar from "./components/Navbar";
-import Contact from "./components/Contact";
+import Developers from "./components/Developers.component";
+import Navbar from "./components/Navbar.component";
 import Arrow from "./assets/arrow_right_up.png";
+// pages
+import Contact from "./pages/Contact.page";
+import Documentation from "./pages/Documentation.page";
 
 const App = () => {
   // Retrieve theme preference from localStorage or default to light mode
@@ -205,7 +207,7 @@ const App = () => {
                   >
                     <h2
                       className={`text-2xl md:text-4xl font-bold mb-4 sm:mb-8 ${
-                        darkMode ? "text-white" : "text-gray-900"
+                        darkMode ? "text-white" : "text-black"
                       }`}
                     >
                       Meet the <span className="text-green-600">FUTURE</span>{" "}
@@ -219,6 +221,8 @@ const App = () => {
           />
           {/* Contact Page Route */}
           <Route path="/contact" element={<Contact darkMode={darkMode} />} />
+          {/* Documentation Page Route */}
+          <Route path="/contact" element={<Documentation darkMode={darkMode} />} />
         </Routes>
       </div>
     </Router>

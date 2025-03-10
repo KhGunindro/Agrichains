@@ -113,19 +113,6 @@ const Contact = ({ darkMode }) => {
           </form>
         </div>
       </motion.div>
-
-      {/* Back Button with Arrow Icon */}
-      <button
-        onClick={() => navigate(-1)} // Navigate back to the previous page
-        className={`mt-6 sm:mt-10 px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold flex items-center gap-2 ${
-          darkMode ? "bg-gray-700 text-white" : "bg-gray-200 text-gray-900"
-        } hover:${
-          darkMode ? "bg-gray-600" : "bg-gray-300"
-        } transition-all duration-300 hover:scale-105`}
-      >
-        <FaArrowLeft className="text-xl" /> {/* Arrow icon */}
-        Go Back
-      </button>
     </div>
   );
 };
