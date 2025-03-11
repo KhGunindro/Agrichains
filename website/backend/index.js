@@ -2,12 +2,15 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv/config'
 import cors from 'cors';
+// pages
+import authController_routes from './routes/authController.routes.js'
 
 class ServerSetup {
     constructor() {
         this.PORT = 9000;
-        this.MONGODB_URL = process.env.MONGODB_URL;
+        this.MONGODB_URL = process.env.LOCAL_MONGODB_URL;
         this.ORIGIN = process.env.ORIGIN;
+        this.ORIGIN2 = process.env.ORIGIN2;
 
         if (!this.MONGODB_URL) {
             console.error("❌ MONGODB_URL is not defined in .env file!");
@@ -32,9 +35,16 @@ class ServerSetup {
         try {
             await this.connectDatabase();
 
-            // CORS setup
+            const allowedOrigins = [process.env.ORIGIN, process.env.ORIGIN2];
+
             const corsOptions = {
-                origin: this.ORIGIN,
+                origin: (origin, callback) => {
+                    if (!origin || allowedOrigins.includes(origin)) {
+                        callback(null, true);
+                    } else {
+                        callback(new Error("Not allowed by CORS"));
+                    }
+                },
                 credentials: true,
                 methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
                 allowedHeaders: ['Content-Type', 'Authorization'],
@@ -42,6 +52,8 @@ class ServerSetup {
 
             this.app.use(cors(corsOptions)); // Enable CORS middleware
             this.app.use(express.json()); // Parse incoming JSON requests
+            // api endpoints for authentications
+            this.app.use('/account', authController_routes);
             this.app.use('/', (req, res) => {
                 res.send("Welcome to the agrichains server!");
             })
@@ -66,7 +78,6 @@ class ServerSetup {
             this.app.listen(this.PORT, '0.0.0.0', () => {
                 console.log(`✅ Server is running at http://localhost:${this.PORT}`);
             });
-
 
             console.log("✅ Server setup successfully!");
 

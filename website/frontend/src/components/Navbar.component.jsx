@@ -20,7 +20,7 @@ const Navbar = ({ darkMode, toggleDarkMode, togglePopup, scrollToTop, visible })
         >
           <div className="flex items-center group">
             <Sprout className="h-5 w-5 sm:h-6 sm:w-6 text-green-600 transition-transform duration-300 group-hover:rotate-12" />
-            <Link to="/" onClick={scrollToTop} className={`text-lg sm:text-xl md:text-2xl font-bold bg-clip-text ml-2 ${darkMode ? "text-white" : "text-black"} cursor-pointer`}>
+            <Link to="/home" onClick={scrollToTop} className={`text-lg sm:text-xl md:text-2xl font-bold bg-clip-text ml-2 ${darkMode ? "text-white" : "text-black"} cursor-pointer`}>
               AgriChains
             </Link>
           </div>
@@ -39,24 +39,33 @@ const Navbar = ({ darkMode, toggleDarkMode, togglePopup, scrollToTop, visible })
               </Link>
             )}
 
-            {location.pathname !== "/" && (
-              <Link to="/" className={`p-1 sm:p-2 rounded-full flex items-center space-x-2 ${darkMode ? "hover:bg-white hover:text-black" : "hover:bg-gray-700 hover:text-white"}`}>
+            {/* Group Icon for Developers (Only Visible on /home) */}
+            {location.pathname === "/home" && (
+              <button
+                onClick={togglePopup}
+                className={`p-1 sm:p-2 rounded-full ${darkMode ? "hover:bg-white hover:text-black" : "hover:bg-gray-700 hover:text-white"
+                  }`}
+              >
+                <FaUsers className="text-lg sm:text-xl" />
+              </button>
+            )}
+
+
+            {/* Home Icon (Hidden on /home route) */}
+            {location.pathname !== "/" && location.pathname !== "/home" && (
+              <Link to="/home" className={`p-1 sm:p-2 rounded-full flex items-center space-x-2 ${darkMode ? "hover:bg-white hover:text-black" : "hover:bg-gray-700 hover:text-white"}`}>
                 <FaHome className="text-lg sm:text-xl" />
                 <span className="hidden sm:inline">Home</span>
               </Link>
             )}
 
-            {location.pathname === "/" && (
-              <button onClick={togglePopup} className={`p-1 sm:p-2 rounded-full ${darkMode ? "hover:bg-white hover:text-black" : "hover:bg-gray-700 hover:text-white"}`}>
-                <FaUsers className="text-lg sm:text-xl" />
-              </button>
-            )}
-
+            {/* Dark Mode Toggle */}
             <button onClick={toggleDarkMode} className={`p-1 sm:p-2 rounded-full ${darkMode ? "hover:bg-white hover:text-black" : "hover:bg-gray-700 hover:text-white"}`}>
               {darkMode ? <FaSun className="text-lg sm:text-xl" /> : <FaMoon className="text-lg sm:text-xl" />}
             </button>
           </div>
 
+          {/* Mobile Menu */}
           <div className="flex sm:hidden items-center space-x-3">
             <button onClick={toggleDarkMode} className={`p-1 sm:p-2 rounded-full ${darkMode ? "hover:bg-white hover:text-black" : "hover:bg-gray-700 hover:text-white"}`}>
               {darkMode ? <FaSun className="text-lg sm:text-xl" /> : <FaMoon className="text-lg sm:text-xl" />}
@@ -67,6 +76,8 @@ const Navbar = ({ darkMode, toggleDarkMode, togglePopup, scrollToTop, visible })
             </button>
           </div>
 
+          {/* Mobile Menu Dropdown */}
+          {/* Mobile Menu Dropdown */}
           <AnimatePresence>
             {isMenuOpen && (
               <motion.div
@@ -74,31 +85,54 @@ const Navbar = ({ darkMode, toggleDarkMode, togglePopup, scrollToTop, visible })
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
-                className={`absolute top-16 right-4 sm:hidden flex flex-col space-y-2 p-4 rounded-lg ${darkMode ? "bg-gray-800" : "bg-white"} drop-shadow-lg z-40`}
+                className={`absolute top-16 right-4 sm:hidden flex flex-col space-y-2 p-4 rounded-lg ${darkMode ? "bg-gray-800" : "bg-white"
+                  } drop-shadow-lg z-40`}
               >
-                {location.pathname !== "/" && (
-                  <Link to="/" className={`p-2 ${darkMode ? "hover:bg-white hover:text-black" : "hover:bg-gray-700 hover:text-white"}`} onClick={() => setIsMenuOpen(false)}>
+                {location.pathname !== "/" && location.pathname !== "/home" && (
+                  <Link
+                    to="/home"
+                    className={`p-2 ${darkMode ? "hover:bg-white hover:text-black" : "hover:bg-gray-700 hover:text-white"}`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
                     Home
                   </Link>
                 )}
                 {location.pathname !== "/documentation" && (
-                  <Link to="/documentation" className={`p-2 font-bold ${darkMode ? "text-white" : "text-gray-900"} hover:no-underline`} onClick={() => setIsMenuOpen(false)}>
+                  <Link
+                    to="/documentation"
+                    className={`p-2 font-bold ${darkMode ? "text-white" : "text-gray-900"} hover:no-underline`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
                     Documentation
                   </Link>
                 )}
                 {location.pathname !== "/contact" && (
-                  <Link to="/contact" className={`p-2 ${darkMode ? "hover:bg-white hover:text-black" : "hover:bg-gray-700 hover:text-white"}`} onClick={() => setIsMenuOpen(false)}>
+                  <Link
+                    to="/contact"
+                    className={`p-2 ${darkMode ? "hover:bg-white hover:text-black" : "hover:bg-gray-700 hover:text-white"}`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
                     Contact Us
                   </Link>
                 )}
-                {location.pathname === "/" && (
-                  <button onClick={() => { togglePopup(); setIsMenuOpen(false); }} className={`p-2 text-left ${darkMode ? "hover:bg-white hover:text-black" : "hover:bg-gray-700 hover:text-white"}`}>
+
+                {/* Show Developers Button only when on /home */}
+                {location.pathname === "/home" && (
+                  <button
+                    onClick={() => {
+                      togglePopup();
+                      setIsMenuOpen(false);
+                    }}
+                    className={`p-2 text-left ${darkMode ? "hover:bg-white hover:text-black" : "hover:bg-gray-700 hover:text-white"
+                      }`}
+                  >
                     Developers
                   </button>
                 )}
               </motion.div>
             )}
           </AnimatePresence>
+
         </motion.nav>
       )}
     </AnimatePresence>

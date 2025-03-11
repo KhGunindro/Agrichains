@@ -1,11 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { FaArrowLeft } from "react-icons/fa"; // Import the arrow icon
 
 const Contact = ({ darkMode }) => {
-  const navigate = useNavigate(); // Initialize the navigate function
-
   return (
     <div
       className={`min-h-screen flex flex-col items-center justify-center ${
@@ -56,7 +53,6 @@ const Contact = ({ darkMode }) => {
                     ? "bg-gray-700 border-gray-600 text-white"
                     : "border-gray-300"
                 } focus:outline-none focus:ring-2 focus:ring-green-600`}
-                placeholder="Enter your name"
                 required
               />
             </div>
@@ -78,7 +74,6 @@ const Contact = ({ darkMode }) => {
                     ? "bg-gray-700 border-gray-600 text-white"
                     : "border-gray-300"
                 } focus:outline-none focus:ring-2 focus:ring-green-600`}
-                placeholder="Enter your email"
                 required
               />
             </div>
@@ -100,7 +95,6 @@ const Contact = ({ darkMode }) => {
                     ? "bg-gray-700 border-gray-600 text-white"
                     : "border-gray-300"
                 } focus:outline-none focus:ring-2 focus:ring-green-600`}
-                placeholder="Write your message here..."
                 required
               ></textarea>
             </div>
