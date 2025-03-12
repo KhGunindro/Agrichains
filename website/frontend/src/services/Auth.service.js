@@ -2,8 +2,6 @@ import Cookie from 'js-cookie'
 
 class Authentication {
     async signup(username, email, password, confirmPassword) {
-        console.log("Sign up method is processing!"); // checking...
-        
         try {
             if (!username || typeof username !== "string") throw new Error("Username is required!");
             if (!email || typeof email !== "string") throw new Error("Email is required!");
@@ -14,9 +12,6 @@ class Authentication {
                 throw new Error("Passwords do not match!");
             }
 
-            console.log("Env-->", import.meta.env.VITE_BACKEND_API);
-            
-
             const response = await fetch(`${import.meta.env.VITE_BACKEND_API}/account/signup`, {
                 method: "POST",
                 headers: {
@@ -24,7 +19,7 @@ class Authentication {
                 },
                 body: JSON.stringify({ username, email, password })
             });
-            
+
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(errorData.message);
@@ -41,19 +36,39 @@ class Authentication {
         }
     }
 
-    async login() {
+    async login(email, password) {
         try {
+            if (!email || typeof email !== 'string') throw new Error("Email is required!");
+            if (!password || typeof password !== 'string') throw new Error("Password is required!");
+            console.log(`Email: ${email}, Password: ${password}`); // debugging
+            
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_API}/account/signIn`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            });
 
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message);
+            }
+
+            const data = await response.json();
+            Cookie.set("token", data.token); // set the token
+
+            return { data: data.message, success: true };
         } catch (error) {
-
+            console.log(error);
+            return { message: error.messge, success: false }
         }
     }
 
     async logout() {
         try {
-
+            const response = await fetch();
         } catch (error) {
-
+            console.log(error);
+            return { message: error.message, success: false }
         }
     }
 }

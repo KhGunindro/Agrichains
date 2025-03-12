@@ -1,21 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { FaArrowLeft } from "react-icons/fa"; // Import the arrow icon
 
 const Contact = ({ darkMode }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [userData, setUserData] = useState({
+    username: "",
+    email: "",
+    message: ""
+  });
+
+  // Clear input fields
+  const clearInputFields = () => {
+    setUserData({
+      username: "",
+      email: "",
+      message: ""
+    });
+  };
+
+// Handle form submission
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const response = await fetch();
+    } catch (error) {
+      console.log(error);
+      
+    } finally {
+      setIsLoading(false);
+    }
+  }
   return (
     <div
-      className={`min-h-screen flex flex-col items-center justify-center ${
-        darkMode ? "bg-gray-900" : "bg-gray-50"
-      } p-4 sm:p-8`} // Adjusted padding for smaller screens
+      className={`min-h-screen flex flex-col items-center justify-center ${darkMode ? "bg-gray-900" : "bg-gray-50"
+        } transition-colors duration-300 p-4 sm:p-8`} // Adjusted padding for smaller screens
     >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className={`w-full max-w-6xl rounded-lg shadow-2xl overflow-hidden flex flex-col md:flex-row ${
-          darkMode ? "bg-gray-800" : "bg-white"
-        } mt-16 sm:mt-0`} // Added top margin for mobile view
+        className={`w-full max-w-6xl rounded-lg shadow-2xl overflow-hidden flex flex-col md:flex-row ${darkMode ? "bg-gray-800" : "bg-white"
+          } transition-colors duration-300 mt-16 sm:mt-0`} // Added top margin for mobile view
       >
         {/* Left Side: GET IN TOUCH Message */}
         <div
@@ -34,13 +62,14 @@ const Contact = ({ darkMode }) => {
 
         {/* Right Side: Input Fields */}
         <div className="w-full text-[13px] md:w-1/2 p-4 sm:p-12">
-          <form>
+          <form onSubmit={submitHandler}>
             <div className="mb-4 sm:mb-6">
               <label
                 htmlFor="name"
-                className={`block text-sm font-medium ${
-                  darkMode ? "text-gray-300" : "text-gray-700"
-                } mb-2`}
+                className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"
+                  } transition-colors duration-300 mb-2`}
+                value={userData.username}
+                onChange={(e) => setUserData({ ...userData, username: e.target.value })}
               >
                 Your Name
               </label>
@@ -48,20 +77,20 @@ const Contact = ({ darkMode }) => {
                 type="text"
                 id="name"
                 name="name"
-                className={`w-full px-4 py-3 rounded-lg border ${
-                  darkMode
+                className={`w-full px-4 py-3 rounded-lg border ${darkMode
                     ? "bg-gray-700 border-gray-600 text-white"
                     : "border-gray-300"
-                } focus:outline-none focus:ring-2 focus:ring-green-600`}
+                  } transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-green-600`}
                 required
               />
             </div>
             <div className="mb-4 sm:mb-6">
               <label
                 htmlFor="email"
-                className={`block text-sm font-medium ${
-                  darkMode ? "text-gray-300" : "text-gray-700"
-                } mb-2`}
+                className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"
+                  } transition-colors duration-300 mb-2`}
+                value={userData.email}
+                onChange={(e) => setUserData({ ...userData, email: e.target.value })}
               >
                 Your Email
               </label>
@@ -69,20 +98,20 @@ const Contact = ({ darkMode }) => {
                 type="email"
                 id="email"
                 name="email"
-                className={`w-full px-4 py-3 rounded-lg border ${
-                  darkMode
+                className={`w-full px-4 py-3 rounded-lg border ${darkMode
                     ? "bg-gray-700 border-gray-600 text-white"
                     : "border-gray-300"
-                } focus:outline-none focus:ring-2 focus:ring-green-600`}
+                  } transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-green-600`}
                 required
               />
             </div>
             <div className="mb-4 sm:mb-6">
               <label
                 htmlFor="message"
-                className={`block text-sm font-medium ${
-                  darkMode ? "text-gray-300" : "text-gray-700"
-                } mb-2`}
+                className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"
+                  } transition-colors duration-300 mb-2`}
+                value={userData.message}
+                onChange={(e) => setUserData({ ...userData, message: e.target.value })}
               >
                 Your Message
               </label>
@@ -90,11 +119,10 @@ const Contact = ({ darkMode }) => {
                 id="message"
                 name="message"
                 rows="5"
-                className={`w-full px-4 py-3 rounded-lg border ${
-                  darkMode
+                className={`w-full px-4 py-3 rounded-lg border ${darkMode
                     ? "bg-gray-700 border-gray-600 text-white"
                     : "border-gray-300"
-                } focus:outline-none focus:ring-2 focus:ring-green-600`}
+                  } transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-green-600`}
                 required
               ></textarea>
             </div>

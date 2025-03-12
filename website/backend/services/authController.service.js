@@ -18,7 +18,7 @@ class AuthController {
             }
 
             // Check if the email exists
-            const isValidUser = await User.findOne({ email });
+            const isValidUser = await User.findOne({ email }).select("+password");
             if (!isValidUser) throw new customError("User not found", 404);
 
             // If the user is valid, check the hashed password
@@ -26,7 +26,7 @@ class AuthController {
             if (!isValidPassword) throw new customError("Incorrect password!", 409);
 
             // Generate JWT token
-            const token = await jwt.generateToken({ userId: isValidUser._id, email: isValidUser.email });
+            const token = await jwt.generateToken({ userId: isValidUser._id });
 
             return res.status(200).json({ message: "Login successful!", token });
         } catch (error) {
@@ -35,6 +35,8 @@ class AuthController {
     }
 
     async signUp(req, res, next) {
+        console.log("Signup service is processing...");
+
         try {
             const { username, email, password } = req.body;
             if (!username || typeof username !== 'string') throw new customError('Username is required', 400);
@@ -64,7 +66,7 @@ class AuthController {
                 password: hashedPassword
             });
 
-            const token = await jwt.generateToken({accountDetail: newUser});
+            const token = await jwt.generateToken({ accountDetail: newUser });
 
             const mailer = new Mailer();
 
@@ -78,7 +80,7 @@ class AuthController {
             // Send verification email
             await mailer.sentMail(mailBody.to, mailBody.subject, mailBody.text);
 
-            return res.status(201).json({ message: "Account created successfully!", verificationToken: token });
+            return res.status(201).json({ message: `OTP is sent to ${email}. Please verify the OTP to complete the signup process!`, verificationToken: token });
         } catch (error) {
             next(error);
         }

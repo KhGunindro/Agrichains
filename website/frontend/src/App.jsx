@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
 import Container from "./components/Container.component";
 import heroImage from "./assets/cute_plant.png";
 import Developers from "./components/TeamFUTURE.component";
@@ -10,16 +10,18 @@ import Arrow from "./assets/arrow_right_up.png";
 import Contact from "./pages/Contact.page";
 import Documentation from "./pages/Documentation.page";
 import Authentication from "./pages/Authentication.page";
+import OTPverification from "./pages/OTPverification.page";
 
 // Create a separate component that will use useLocation
 const AppContent = ({ darkMode, toggleDarkMode }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [lastScrollY, setLastScrollY] = useState(0); // Track last scroll position
   const [visible, setVisible] = useState(true); // Control navbar visibility
-  
+
   // Ref for the developer section
   const developersRef = useRef(null);
-  
+
   const togglePopup = () => {
     // Scroll to the developer section
     if (developersRef.current) {
@@ -58,10 +60,10 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
   return (
     <div
       className={`min-h-screen flex flex-col ${darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
-        }`}
+        } transition-colors duration-300`}
     >
-      {/* Conditionally render Navbar for all routes except '/' */}
-      {location.pathname !== "/" && (
+      {/* Conditionally render Navbar for all routes except '/auth' */}
+      {location.pathname !== "/auth" && location.pathname !== '/auth/otp-verify' && (
         <Navbar
           darkMode={darkMode}
           toggleDarkMode={toggleDarkMode}
@@ -74,7 +76,7 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
       {/* Routes */}
       <Routes>
         <Route
-          path="/home"
+          path="/"
           element={
             <>
               {/* Welcome Text and Image Section */}
@@ -90,7 +92,7 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
                     {/* Heading */}
                     <h1
                       className={`text-[25px] sm:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight ${darkMode ? "text-white" : "text-gray-900"
-                        }`}
+                        } transition-colors duration-300`}
                     >
                       Welcome to{" "}
                       <span className="text-green-600">AgriChains</span>
@@ -99,7 +101,7 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
                     {/* Description */}
                     <p
                       className={`text-sm text-left sm:text-base lg:text-lg max-w-[90%] md:max-w-[80%] md:mx-0 ${darkMode ? "text-gray-300" : "text-gray-600"
-                        }`}
+                        } transition-colors duration-300`}
                     >
                       Discover the future of agriculture with AgriChains.
                       Follow the steps below to get started and explore the
@@ -109,7 +111,7 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
                     {/* Tagline */}
                     <p
                       className={`mt-5 text-sm sm:text-[16px] text-left italic ${darkMode ? "text-gray-400" : "text-gray-500"
-                        }`}
+                        } transition-colors duration-300`}
                     >
                       — Cultivating trust, growing transparency
                     </p>
@@ -171,15 +173,13 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
                 transition={{ duration: 0.5 }}
                 className="flex justify-center sm:my-24 sm:mt-10"
               >
-                <a
-                  href="https://agrichains.tech/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1 px-4 py-4 sm:px-5 sm:py-5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:bg-gradient-to-r hover:from-green-600 hover:to-green-800 text-xl sm:text-3xl font-semibold drop-shadow-lg transition-all duration-300 hover:scale-105"
+                <Link
+                  to="/auth"
+                  className="flex items-center gap-1 px-4 py-4 sm:px-5 sm:py-5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:bg-gradient-to-r hover:from-green-600 hover:to-green-800 text-xl sm:text-3xl font-semibold drop-shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer"
                 >
                   Go To DApp
                   <img src={Arrow} className="w-4 h-4 sm:w-5 sm:h-5" />
-                </a>
+                </Link>
               </motion.div>
 
               {/* Developer Carousel */}
@@ -192,7 +192,7 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
                 >
                   <h2
                     className={`text-2xl md:text-4xl font-bold mb-4 sm:mb-8 ${darkMode ? "text-white" : "text-black"
-                      }`}
+                      } transition-colors duration-300`}
                   >
                     Meet the <span className="text-green-600">FUTURE</span>{" "}
                     team
@@ -203,11 +203,13 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
             </>
           }
         />
-        <Route path="/" element={<Authentication darkMode={darkMode} />} />
+        {/* Authentication Page Route */}
+        <Route path="/auth" element={<Authentication darkMode={darkMode} />} />
         {/* Contact Page Route */}
         <Route path="/contact" element={<Contact darkMode={darkMode} />} />
         {/* Documentation Page Route */}
         <Route path="/documentation" element={<Documentation darkMode={darkMode} />} />
+        <Route path="/auth/otp-verify" element={<OTPverification darkMode={darkMode} />} />
       </Routes>
     </div>
   );

@@ -6,6 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/autoplay";
 import Mechanshil from "../assets/Mechanshil.jpg";
 import Muidou from '../assets/Muidou.jpeg'
+import Chand from '../assets/chand.jpg'
 
 const Developers = () => {
   const nextArrowRef = useRef(null);
@@ -24,10 +25,9 @@ const Developers = () => {
     {
       id: 2,
       name: "Chanyahor A Shimray",
-      role: "Business & Marketing Strategist",
-      image:
-        "https://plus.unsplash.com/premium_photo-1682095227569-31a7cd3d31b5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      description: "Everything is in my palm😎",
+      role: "Team Leader, Future",
+      image: Chand,
+      description: "Who's the boss here?😎",
     },
     {
       id: 3,
@@ -39,7 +39,7 @@ const Developers = () => {
     {
       id: 4,
       name: "Muidou Kanshouwa",
-      role: "Researcher and Documentation Specialist",
+      role: "Researcher and Business Strategist",
       image: Muidou,
       description: "Everything is found with research🧐",
     },
