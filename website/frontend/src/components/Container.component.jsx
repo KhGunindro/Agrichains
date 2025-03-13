@@ -13,7 +13,7 @@ const Container = ({ image, text, position, darkMode }) => {
       <div
         className={`w-[60%] max-md:w-full max-md:px-4 p-8 rounded-lg ${
           darkMode ? "bg-gray-900/30" : "bg-white/30"
-        } transition-all duration-300 hover:scale-105 backdrop-blur-sm`}
+        } hover:scale-105 backdrop-blur-sm`}
       >
         <img
           src={`${image}`}
@@ -23,7 +23,7 @@ const Container = ({ image, text, position, darkMode }) => {
         <p
           className={`text-lg ${
             darkMode ? "text-gray-100/90" : "text-gray-800/90"
-          } transition-colors duration-300`}
+          } `}
         >
           {text}
         </p>

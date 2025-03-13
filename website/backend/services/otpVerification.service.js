@@ -2,6 +2,7 @@ import OTPmodel from '../model/otp.model.js';
 import UserModel from '../model/user.model.js';
 import CustomError from '../components/customError.component.js';
 import jwt from 'jsonwebtoken';
+import Mailer from '../lib/nodemailer.middleware.js';
 
 // this needs to be reviewed
 const OTPverification = async (req, res, next) => {
@@ -42,6 +43,13 @@ const OTPverification = async (req, res, next) => {
         const token = jwt.sign({ accountId: newUser._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
 
         // after successfull otp verification, send email
+        const mailer = new Mailer();
+        const mailBody = {
+            to: newUser.email,
+            subject: "Welcome to our platform!",
+            text: `Hello ${newUser.username}, welcome to our platform! Your account has been created successfully. Explore our platform and enjoy! \n\nThanks, team FUTURE.`,
+        }
+        await mailer.sentMail(mailBody.to, mailBody.subject, mailBody.text); // send welcome email to our new user
 
         return res.status(201).json({ message: "Account created successfully!", token });
     } catch (error) {

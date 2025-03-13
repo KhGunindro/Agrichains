@@ -14,10 +14,9 @@ class Authentication {
 
             const response = await fetch(`${import.meta.env.VITE_BACKEND_API}/account/signup`, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ username, email, password })
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, email, password }),
+                credentails: 'include'
             });
 
             if (!response.ok) {
@@ -41,11 +40,12 @@ class Authentication {
             if (!email || typeof email !== 'string') throw new Error("Email is required!");
             if (!password || typeof password !== 'string') throw new Error("Password is required!");
             console.log(`Email: ${email}, Password: ${password}`); // debugging
-            
+
             const response = await fetch(`${import.meta.env.VITE_BACKEND_API}/account/signIn`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({ email, password }),
+                credentials: 'include'
             });
 
             if (!response.ok) {
@@ -63,6 +63,7 @@ class Authentication {
         }
     }
 
+    // add later
     async logout() {
         try {
             const response = await fetch();

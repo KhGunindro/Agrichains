@@ -88,24 +88,18 @@ const Authentication = ({ darkMode }) => {
             if (response.success) {
                 setAlertType("success");
                 setAlertMessage(response.data);
-
-                // Wait for 2 seconds to show the success message
-                await new Promise((resolve) => setTimeout(resolve, 1000));
-
-                // Navigate to the external link
-                window.location.href = `${import.meta.env.VITE_AGRICHAINS}`; // Navigates in the same tab
+                window.location.href = `${import.meta.env.VITE_AGRICHAINS}`; // Navigate in the same tab
+                clearInputFields();
             } else {
                 setAlertType("error");
                 setAlertMessage(response.message || "An error occurred. Please try again.");
             }
         } catch (error) {
             setAlertType("error");
+            clearInputFields();
             setAlertMessage(error.message || "An error occurred. Please try again.");
         } finally {
-            // Clear input fields regardless of success or failure
-            clearInputFields();
-            // Stop loading only after navigation is complete
-            // Note: `isLoading` will be reset when the component unmounts during navigation
+            setIsLoading(false);
         }
     };
 
@@ -266,43 +260,37 @@ const Authentication = ({ darkMode }) => {
                                     </div>
                                     <button
                                         type="submit"
-                                        className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700 transition-colors"
+                                        className={`w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition-colors duration-300 ${isLoading ? "opacity-50 cursor-not-allowed" : ""
+                                            }`}
                                         disabled={isLoading}
                                     >
-                                        <button
-                                            type="submit"
-                                            className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700 transition-colors flex items-center justify-center hover:cursor-pointer"
-                                            disabled={isLoading}
-                                        >
-                                            {isLoading ? (
-                                                <div className="flex items-center">
-                                                    <svg
-                                                        className="animate-spin h-5 w-5 mr-2 text-white"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        fill="none"
-                                                        viewBox="0 0 24 24"
-                                                    >
-                                                        <circle
-                                                            className="opacity-25"
-                                                            cx="12"
-                                                            cy="12"
-                                                            r="10"
-                                                            stroke="currentColor"
-                                                            strokeWidth="4"
-                                                        ></circle>
-                                                        <path
-                                                            className="opacity-75"
-                                                            fill="currentColor"
-                                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                                        ></path>
-                                                    </svg>
-                                                    <span>Signing Up...</span>
-                                                </div>
-                                            ) : (
-                                                'Sign Up'
-                                            )}
-                                        </button>
-
+                                        {isLoading ? (
+                                            <div className="flex items-center justify-center"> {/* Center horizontally and vertically */}
+                                                <svg
+                                                    className="animate-spin h-5 w-5 mr-2 text-white"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <circle
+                                                        className="opacity-25"
+                                                        cx="12"
+                                                        cy="12"
+                                                        r="10"
+                                                        stroke="currentColor"
+                                                        strokeWidth="4"
+                                                    ></circle>
+                                                    <path
+                                                        className="opacity-75"
+                                                        fill="currentColor"
+                                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                                    ></path>
+                                                </svg>
+                                                <span>Signing Up...</span>
+                                            </div>
+                                        ) : (
+                                            'Sign Up'
+                                        )}
                                     </button>
                                     <div className="mt-4">
                                         <p className={`${darkMode ? "text-gray-300" : "text-gray-600"}`}>
@@ -398,13 +386,14 @@ const Authentication = ({ darkMode }) => {
                                     </div>
                                     <button
                                         type="submit"
-                                        className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700 transition-colors hover: cursor-pointer"
+                                        className={`w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition-colors duration-300 ${isLoading ? "opacity-50 cursor-not-allowed" : ""
+                                            }`}
                                         disabled={isLoading}
                                     >
                                         {isLoading ? (
-                                            <>
+                                            <div className="flex items-center justify-center"> {/* Center horizontally and vertically */}
                                                 <svg
-                                                    className="animate-spin h-5 w-5 mr-3 text-white"
+                                                    className="animate-spin h-5 w-5 mr-2 text-white"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     fill="none"
                                                     viewBox="0 0 24 24"
@@ -423,8 +412,8 @@ const Authentication = ({ darkMode }) => {
                                                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                                                     ></path>
                                                 </svg>
-                                                Signing In...
-                                            </>
+                                                <span>Signing In...</span>
+                                            </div>
                                         ) : (
                                             'Sign In'
                                         )}
@@ -581,11 +570,12 @@ const Authentication = ({ darkMode }) => {
                                         </div>
                                         <button
                                             type="submit"
-                                            className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700 transition-colors flex items-center justify-center"
+                                            className={`w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition-colors duration-300 ${isLoading ? "opacity-50 cursor-not-allowed" : ""
+                                                }`}
                                             disabled={isLoading}
                                         >
                                             {isLoading ? (
-                                                <div className="flex items-center">
+                                                <div className="flex items-center justify-center"> {/* Center horizontally and vertically */}
                                                     <svg
                                                         className="animate-spin h-5 w-5 mr-2 text-white"
                                                         xmlns="http://www.w3.org/2000/svg"

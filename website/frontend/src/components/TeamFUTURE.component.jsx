@@ -20,7 +20,7 @@ const Developers = () => {
       role: "Smart Contract Developer",
       image:
         "https://plus.unsplash.com/premium_photo-1682095404705-f0ffdc30afb0?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      description: "I create badass smart contracts🔥",
+      description: "Not everyone can be smart!🔥",
     },
     {
       id: 2,
@@ -32,16 +32,16 @@ const Developers = () => {
     {
       id: 3,
       name: "Khulpu Mechanshil Maring",
-      role: "Web3 context & Backend developer",
+      role: "FullStack developer",
       image: Mechanshil,
-      description: "Simplicity is the best style🙂",
+      description: "Simplicity is the best style!🙂",
     },
     {
       id: 4,
       name: "Muidou Kanshouwa",
       role: "Researcher and Business Strategist",
       image: Muidou,
-      description: "Everything is found with research🧐",
+      description: "Everything is found with research!🧐",
     },
   ];
 

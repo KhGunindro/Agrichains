@@ -42,6 +42,7 @@ class AuthController {
             if (!username || typeof username !== 'string') throw new customError('Username is required', 400);
             if (!email || typeof email !== 'string') throw new customError("Email is required!", 400);
             if (!password || typeof password !== 'string') throw new customError("Password is required!", 400);
+            if(password.length < 6) throw new customError("Password must be 6 characters long!", 400);
 
             // Validate email format
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -80,7 +81,7 @@ class AuthController {
             // Send verification email
             await mailer.sentMail(mailBody.to, mailBody.subject, mailBody.text);
 
-            return res.status(201).json({ message: `OTP is sent to ${email}. Please verify the OTP to complete the signup process!`, verificationToken: token });
+            return res.status(201).json({ message: `OTP is sent to ${email}. Please verify the OTP to complete the signup process! OTP expires in 1 minute.`, verificationToken: token });
         } catch (error) {
             next(error);
         }

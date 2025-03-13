@@ -37,6 +37,7 @@ class Mailer {
     }
 
     async sentMail(to, subject, text) {
+        console.log("Mail from : ", this.from); // Debugging
         console.log("Sending mail to:", to); // Debugging
         console.log("Using sender:", this.user); // Debugging
 
@@ -46,17 +47,17 @@ class Mailer {
             console.error("Invalid email address:", to); // Debugging
             return { error: "Invalid email address!" };
         }
-
+    
         await this.setUp(); // Initialize the transporter
-
+    
         try {
             const info = await this.transporter.sendMail({
-                from: this.from,
+                from: this.from, 
                 to: to,
                 subject: subject,
                 text: text
             });
-
+    
             console.log("Email sent successfully:", info); // Debugging
             return info;
         } catch (error) {

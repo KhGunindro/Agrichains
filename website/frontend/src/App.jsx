@@ -60,7 +60,7 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
   return (
     <div
       className={`min-h-screen flex flex-col ${darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
-        } transition-colors duration-300`}
+        } `}
     >
       {/* Conditionally render Navbar for all routes except '/auth' */}
       {location.pathname !== "/auth" && location.pathname !== '/auth/otp-verify' && (
@@ -92,7 +92,7 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
                     {/* Heading */}
                     <h1
                       className={`text-[25px] sm:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight ${darkMode ? "text-white" : "text-gray-900"
-                        } transition-colors duration-300`}
+                        } `}
                     >
                       Welcome to{" "}
                       <span className="text-green-600">AgriChains</span>
@@ -101,7 +101,7 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
                     {/* Description */}
                     <p
                       className={`text-sm text-left sm:text-base lg:text-lg max-w-[90%] md:max-w-[80%] md:mx-0 ${darkMode ? "text-gray-300" : "text-gray-600"
-                        } transition-colors duration-300`}
+                        } `}
                     >
                       Discover the future of agriculture with AgriChains.
                       Follow the steps below to get started and explore the
@@ -111,7 +111,7 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
                     {/* Tagline */}
                     <p
                       className={`mt-5 text-sm sm:text-[16px] text-left italic ${darkMode ? "text-gray-400" : "text-gray-500"
-                        } transition-colors duration-300`}
+                        } `}
                     >
                       — Cultivating trust, growing transparency
                     </p>
@@ -192,7 +192,7 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
                 >
                   <h2
                     className={`text-2xl md:text-4xl font-bold mb-4 sm:mb-8 ${darkMode ? "text-white" : "text-black"
-                      } transition-colors duration-300`}
+                      } `}
                   >
                     Meet the <span className="text-green-600">FUTURE</span>{" "}
                     team
