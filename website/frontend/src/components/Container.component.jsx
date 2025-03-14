@@ -10,10 +10,12 @@ const Container = ({ image, text, position, darkMode }) => {
       viewport={{ once: true }} // Animate only once
       className={`my-12 w-full flex justify-center`}
     >
-      <div
+      <motion.div
+        whileHover={{ scale: 1.05 }} // Smooth hover scale animation
+        transition={{ duration: 0.3, ease: "easeInOut" }} // Smooth transition
         className={`w-[60%] max-md:w-full max-md:px-4 p-8 rounded-lg ${
           darkMode ? "bg-gray-900/30" : "bg-white/30"
-        } hover:scale-105 backdrop-blur-sm`}
+        } backdrop-blur-sm`}
       >
         <img
           src={`${image}`}
@@ -27,7 +29,7 @@ const Container = ({ image, text, position, darkMode }) => {
         >
           {text}
         </p>
-      </div>
+      </motion.div>
     </motion.div>
   );
 };

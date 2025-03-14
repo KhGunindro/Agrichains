@@ -59,7 +59,7 @@ class Authentication {
             return { data: data.message, success: true };
         } catch (error) {
             console.log(error);
-            return { message: error.messge, success: false }
+            return { message: error.message, success: false }
         }
     }
 

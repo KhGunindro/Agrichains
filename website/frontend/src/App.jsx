@@ -1,8 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useLocation,
+} from "react-router-dom";
 import Container from "./components/Container.component";
-import heroImage from "./assets/cute_plant.png";
+import heroImage from "./assets/BoardBanner.png";
 import Developers from "./components/TeamFUTURE.component";
 import Navbar from "./components/Navbar.component";
 import Arrow from "./assets/arrow_right_up.png";
@@ -15,7 +21,6 @@ import OTPverification from "./pages/OTPverification.page";
 // Create a separate component that will use useLocation
 const AppContent = ({ darkMode, toggleDarkMode }) => {
   const location = useLocation();
-  const navigate = useNavigate();
   const [lastScrollY, setLastScrollY] = useState(0); // Track last scroll position
   const [visible, setVisible] = useState(true); // Control navbar visibility
 
@@ -59,19 +64,21 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
 
   return (
     <div
-      className={`min-h-screen flex flex-col ${darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
-        } `}
+      className={`min-h-screen flex flex-col ${
+        darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
+      } `}
     >
       {/* Conditionally render Navbar for all routes except '/auth' */}
-      {location.pathname !== "/auth" && location.pathname !== '/auth/otp-verify' && (
-        <Navbar
-          darkMode={darkMode}
-          toggleDarkMode={toggleDarkMode}
-          togglePopup={togglePopup}
-          scrollToTop={scrollToTop}
-          visible={visible}
-        />
-      )}
+      {location.pathname !== "/auth" &&
+        location.pathname !== "/auth/otp-verify" && (
+          <Navbar
+            darkMode={darkMode}
+            toggleDarkMode={toggleDarkMode}
+            togglePopup={togglePopup}
+            scrollToTop={scrollToTop}
+            visible={visible}
+          />
+        )}
 
       {/* Routes */}
       <Routes>
@@ -91,8 +98,9 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
                   <div className="text-left mt-15 md:text-left md:w-1/2 md:pl-10 lg:pl-20">
                     {/* Heading */}
                     <h1
-                      className={`text-[25px] sm:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight ${darkMode ? "text-white" : "text-gray-900"
-                        } `}
+                      className={`text-[25px] sm:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight ${
+                        darkMode ? "text-white" : "text-gray-900"
+                      } `}
                     >
                       Welcome to{" "}
                       <span className="text-green-600">AgriChains</span>
@@ -100,29 +108,31 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
 
                     {/* Description */}
                     <p
-                      className={`text-sm text-left sm:text-base lg:text-lg max-w-[90%] md:max-w-[80%] md:mx-0 ${darkMode ? "text-gray-300" : "text-gray-600"
-                        } `}
+                      className={`text-sm text-left sm:text-base lg:text-lg max-w-[90%] md:max-w-[80%] md:mx-0 ${
+                        darkMode ? "text-gray-300" : "text-gray-600"
+                      } `}
                     >
-                      Discover the future of agriculture with AgriChains.
-                      Follow the steps below to get started and explore the
-                      platform's features.
+                      Discover the future of agriculture with AgriChains. Follow
+                      the steps below to get started and explore the platform's
+                      features.
                     </p>
 
                     {/* Tagline */}
                     <p
-                      className={`mt-5 text-sm sm:text-[16px] text-left italic ${darkMode ? "text-gray-400" : "text-gray-500"
-                        } `}
+                      className={`mt-5 text-sm sm:text-[16px] text-left italic ${
+                        darkMode ? "text-gray-400" : "text-gray-500"
+                      } `}
                     >
                       — Cultivating trust, growing transparency
                     </p>
                   </div>
 
                   {/* Image - Hidden on Mobile */}
-                  <div className="hidden md:flex md:w-1/2 justify-center items-center mt-10 md:mt-0">
+                  <div className="hidden md:flex md:w-1/2 justify-center items-center mt-10">
                     <img
                       src={heroImage}
                       alt="AgriChains Hero"
-                      className="w-[40%] md:w-[22%] h-auto object-contain rounded-lg transition-transform duration-300 hover:rotate-12 group cursor-pointer"
+                      className="w-[40%] sm:w-[45%] h-auto object-contain rounded-lg transition-transform duration-300 group"
                     />
                   </div>
                 </motion.div>
@@ -175,10 +185,19 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
               >
                 <Link
                   to="/auth"
-                  className="flex items-center gap-1 px-4 py-4 sm:px-5 sm:py-5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:bg-gradient-to-r hover:from-green-600 hover:to-green-800 text-xl sm:text-3xl font-semibold drop-shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer"
+                  className="relative flex items-center gap-2 px-6 py-4 sm:px-8 sm:py-5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl hover:bg-gradient-to-r hover:from-emerald-700 hover:to-teal-700 text-xl sm:text-3xl font-semibold drop-shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer overflow-hidden group"
                 >
-                  Go To DApp
-                  <img src={Arrow} className="w-4 h-4 sm:w-5 sm:h-5" />
+                  {/* Button Text */}
+                  <span className="relative z-10">Go To DApp</span>
+
+                  {/* Arrow Icon */}
+                  <img
+                    src={Arrow}
+                    className="w-4 h-4 sm:w-5 sm:h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-2"
+                  />
+
+                  {/* Shiny Overlay Effect */}
+                  <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -translate-x-full group-hover:translate-x-0"></div>
                 </Link>
               </motion.div>
 
@@ -191,11 +210,11 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
                   className="text-center mt-40"
                 >
                   <h2
-                    className={`text-2xl md:text-4xl font-bold mb-4 sm:mb-8 ${darkMode ? "text-white" : "text-black"
-                      } `}
+                    className={`text-2xl md:text-4xl font-bold mb-4 sm:mb-8 ${
+                      darkMode ? "text-white" : "text-black"
+                    } `}
                   >
-                    Meet the <span className="text-green-600">FUTURE</span>{" "}
-                    team
+                    Meet the <span className="text-green-600">FUTURE</span> team
                   </h2>
                 </motion.div>
                 <Developers />
@@ -208,8 +227,14 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
         {/* Contact Page Route */}
         <Route path="/contact" element={<Contact darkMode={darkMode} />} />
         {/* Documentation Page Route */}
-        <Route path="/documentation" element={<Documentation darkMode={darkMode} />} />
-        <Route path="/auth/otp-verify" element={<OTPverification darkMode={darkMode} />} />
+        <Route
+          path="/documentation"
+          element={<Documentation darkMode={darkMode} />}
+        />
+        <Route
+          path="/auth/otp-verify"
+          element={<OTPverification darkMode={darkMode} />}
+        />
       </Routes>
     </div>
   );

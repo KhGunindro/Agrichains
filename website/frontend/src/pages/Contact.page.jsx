@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 // Alert Component
@@ -39,7 +38,6 @@ const Alert = ({ type, message, onClose }) => {
 };
 
 const Contact = ({ darkMode }) => {
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [alertType, setAlertType] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
@@ -78,17 +76,20 @@ const Contact = ({ darkMode }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_API}/contact/mail`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          senderName: userData.senderName,
-          email: userData.email,
-          messageType: userData.messageType,
-          message: userData.message,
-        }),
-        credentials: "include",
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_API}/contact/mail`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            senderName: userData.senderName,
+            email: userData.email,
+            messageType: userData.messageType,
+            message: userData.message,
+          }),
+          credentials: "include",
+        }
+      );
 
       if (!response.ok) {
         setAlertType("error");
@@ -110,8 +111,9 @@ const Contact = ({ darkMode }) => {
 
   return (
     <div
-      className={`min-h-screen flex flex-col items-center justify-center ${darkMode ? "bg-gray-900" : "bg-gray-50"
-        }  p-4 sm:p-8`}
+      className={`min-h-screen flex flex-col items-center justify-center ${
+        darkMode ? "bg-gray-900" : "bg-gray-50"
+      }  p-4 sm:p-8`}
     >
       {/* Alert Box */}
       {alertMessage && (
@@ -126,21 +128,46 @@ const Contact = ({ darkMode }) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className={`w-full max-w-4xl rounded-lg shadow-2xl overflow-hidden flex flex-col md:flex-row ${darkMode ? "bg-gray-800" : "bg-white"
-          }  mt-16 sm:mt-0`}
+        className={`w-full max-w-4xl rounded-lg shadow-2xl overflow-hidden flex flex-col md:flex-row ${
+          darkMode ? "bg-gray-800" : "bg-white"
+        }  mt-16 sm:mt-0`}
       >
         {/* Left Side: GET IN TOUCH Message */}
         <div
           className={`w-full md:w-1/2 bg-green-700 text-white p-6 sm:p-8 flex flex-col justify-center`}
         >
-          <h1 className="text-2xl sm:text-3xl font-bold mb-4">
+          {/* Heading with Gradient Text */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="text-2xl sm:text-3xl font-bold mb-4 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent"
+          >
             GET IN TOUCH
-          </h1>
-          <p className="text-sm sm:text-base mb-4">
-            Interested in working together? Fill out some info and we will be in
-            touch shortly.
-          </p>
-          <p className="text-xs sm:text-base">We can't wait to hear from you!</p>
+          </motion.h1>
+
+          {/* Subheading with Fade-In Animation */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="text-sm sm:text-base mb-4 text-gray-100"
+          >
+            Have questions or want to collaborate with AgriChains? We'd love to
+            hear from you! Whether you're a farmer, distributor, or partner
+            interested in our platform, reach out to us. Fill up the form, and
+            we'll get back to you as soon as possible!
+          </motion.p>
+
+          {/* Call to Action with Hover Animation */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
+            className="text-xs sm:text-base text-gray-100 italic"
+          >
+            We can't wait to hear from you!
+          </motion.p>
         </div>
 
         {/* Right Side: Input Fields */}
@@ -149,8 +176,9 @@ const Contact = ({ darkMode }) => {
             <div>
               <label
                 htmlFor="name"
-                className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"
-                  } mb-2`}
+                className={`block text-sm font-medium ${
+                  darkMode ? "text-gray-300" : "text-gray-700"
+                } mb-2`}
               >
                 Your Name
               </label>
@@ -158,10 +186,11 @@ const Contact = ({ darkMode }) => {
                 type="text"
                 id="name"
                 name="name"
-                className={`w-full px-3 py-2 rounded-lg border ${darkMode
+                className={`w-full px-3 py-2 rounded-lg border ${
+                  darkMode
                     ? "bg-gray-700 border-gray-600 text-white focus:border-green-500"
                     : "border-gray-300 focus:border-green-500"
-                  }  focus:outline-none focus:ring-2 focus:ring-green-500`}
+                }  focus:outline-none focus:ring-2 focus:ring-green-500`}
                 value={userData.senderName}
                 onChange={(e) =>
                   setUserData({ ...userData, senderName: e.target.value })
@@ -172,8 +201,9 @@ const Contact = ({ darkMode }) => {
             <div>
               <label
                 htmlFor="email"
-                className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"
-                  } mb-2`}
+                className={`block text-sm font-medium ${
+                  darkMode ? "text-gray-300" : "text-gray-700"
+                } mb-2`}
               >
                 Your Email
               </label>
@@ -181,10 +211,11 @@ const Contact = ({ darkMode }) => {
                 type="email"
                 id="email"
                 name="email"
-                className={`w-full px-3 py-2 rounded-lg border ${darkMode
+                className={`w-full px-3 py-2 rounded-lg border ${
+                  darkMode
                     ? "bg-gray-700 border-gray-600 text-white focus:border-green-500"
                     : "border-gray-300 focus:border-green-500"
-                  }  focus:outline-none focus:ring-2 focus:ring-green-500`}
+                }  focus:outline-none focus:ring-2 focus:ring-green-500`}
                 value={userData.email}
                 onChange={(e) =>
                   setUserData({ ...userData, email: e.target.value })
@@ -194,8 +225,9 @@ const Contact = ({ darkMode }) => {
             </div>
             <div>
               <label
-                className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"
-                  } mb-2`}
+                className={`block text-sm font-medium ${
+                  darkMode ? "text-gray-300" : "text-gray-700"
+                } mb-2`}
               >
                 Type of Message
               </label>
@@ -209,8 +241,9 @@ const Contact = ({ darkMode }) => {
                     onChange={(e) =>
                       setUserData({ ...userData, messageType: e.target.value })
                     }
-                    className={`mr-2 ${darkMode ? "text-green-500" : "text-green-600"
-                      }`}
+                    className={`mr-2 ${
+                      darkMode ? "text-green-500" : "text-green-600"
+                    }`}
                   />
                   <span className="text-sm">Feedback</span>
                 </label>
@@ -223,8 +256,9 @@ const Contact = ({ darkMode }) => {
                     onChange={(e) =>
                       setUserData({ ...userData, messageType: e.target.value })
                     }
-                    className={`mr-2 ${darkMode ? "text-green-500" : "text-green-600"
-                      }`}
+                    className={`mr-2 ${
+                      darkMode ? "text-green-500" : "text-green-600"
+                    }`}
                   />
                   <span className="text-sm">Collaboration</span>
                 </label>
@@ -233,8 +267,9 @@ const Contact = ({ darkMode }) => {
             <div>
               <label
                 htmlFor="message"
-                className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"
-                  } mb-2`}
+                className={`block text-sm font-medium ${
+                  darkMode ? "text-gray-300" : "text-gray-700"
+                } mb-2`}
               >
                 Your Message
               </label>
@@ -242,10 +277,11 @@ const Contact = ({ darkMode }) => {
                 id="message"
                 name="message"
                 rows="4"
-                className={`w-full px-3 py-2 rounded-lg border ${darkMode
+                className={`w-full px-3 py-2 rounded-lg border ${
+                  darkMode
                     ? "bg-gray-700 border-gray-600 text-white focus:border-green-500"
                     : "border-gray-300 focus:border-green-500"
-                  }  focus:outline-none focus:ring-2 focus:ring-green-500`}
+                }  focus:outline-none focus:ring-2 focus:ring-green-500`}
                 value={userData.message}
                 onChange={(e) =>
                   setUserData({ ...userData, message: e.target.value })
@@ -255,8 +291,9 @@ const Contact = ({ darkMode }) => {
             </div>
             <button
               type="submit"
-              className={`w-full bg-green-600 text-white p-2 rounded-lg hover:bg-green-700  ${isLoading ? "opacity-50 cursor-not-allowed" : ""
-                }`}
+              className={`w-full bg-green-600 text-white p-2 rounded-lg hover:bg-green-700  ${
+                isLoading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
               disabled={isLoading}
             >
               {isLoading ? (
