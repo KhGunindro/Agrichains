@@ -12,6 +12,8 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.0.12",
     "framer-motion": "^12.4.10",
+    "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.479.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
