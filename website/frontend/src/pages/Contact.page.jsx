@@ -180,7 +180,7 @@ const Contact = ({ darkMode }) => {
                   darkMode ? "text-gray-300" : "text-gray-700"
                 } mb-2`}
               >
-                Your Name
+                Your Name / Company Name
               </label>
               <input
                 type="text"
@@ -205,7 +205,7 @@ const Contact = ({ darkMode }) => {
                   darkMode ? "text-gray-300" : "text-gray-700"
                 } mb-2`}
               >
-                Your Email
+                Email
               </label>
               <input
                 type="email"

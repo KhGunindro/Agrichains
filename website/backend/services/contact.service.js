@@ -19,10 +19,11 @@ class Contact {
                 subject: messageType, // let the user choose between (feedback, connect);
                 text: `Hi, I'm ${senderName}. \n\n${message} \n\n From: ${email}`
             }
+            const text = messageType === 'feedback' ? `We've received your "${messageType}" message and we, the FUTURE team thank you again for your valuable feedback!`: `We've received your "${messageType}" message and we, the FUTURE will contact you soon!`;
             const mailer = new Mailer();
             await mailer.sentMail(mailBody.to, mailBody.subject, mailBody.text); // incoming mail
 
-            await mailer.sentMail(email, `Thanks for contacting us, ${senderName}.`, `We've received your "${messageType}" message and we, the FUTURE will contact you soon!`); // response mail
+            await mailer.sentMail(email, `Thanks for contacting us, ${senderName}.`, text); // response mail
 
             return res.status(200).json({ message: `Mail sent successfully!` });
         } catch (error) {

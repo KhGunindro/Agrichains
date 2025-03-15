@@ -39,7 +39,6 @@ class Authentication {
         try {
             if (!email || typeof email !== 'string') throw new Error("Email is required!");
             if (!password || typeof password !== 'string') throw new Error("Password is required!");
-            console.log(`Email: ${email}, Password: ${password}`); // debugging
 
             const response = await fetch(`${import.meta.env.VITE_BACKEND_API}/account/signIn`, {
                 method: "POST",

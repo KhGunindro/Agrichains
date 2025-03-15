@@ -19,7 +19,7 @@ class AuthController {
 
             // Check if the email exists
             const isValidUser = await User.findOne({ email }).select("+password");
-            if (!isValidUser) throw new customError("User not found", 404);
+            if (!isValidUser) throw new customError(`"${email}" is not registered!`, 404);
 
             // If the user is valid, check the hashed password
             const isValidPassword = await bcryptjs.compare(password, isValidUser.password);

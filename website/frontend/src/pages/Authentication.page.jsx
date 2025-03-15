@@ -95,6 +95,7 @@ const Authentication = ({ darkMode }) => {
         userData.email,
         userData.password
       );
+
       if (response.success) {
         setAlertType("success");
         setAlertMessage(`${response.data}✅`);
@@ -105,21 +106,21 @@ const Authentication = ({ darkMode }) => {
         setAlertMessage(
           response.message || "An error occurred. Please try again."
         );
+        clearInputFields();
       }
     } catch (error) {
       setAlertType("error");
-      clearInputFields();
       setAlertMessage(error.message || "An error occurred. Please try again.");
+      clearInputFields();
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Stop loading regardless of the outcome
     }
   };
 
   return (
     <div
-      className={`min-h-screen flex flex-col items-center justify-center mt-[-10%] md:mt-0 ${
-        darkMode ? "bg-gray-900" : "bg-gray-50"
-      } p-4 sm:p-8`}
+      className={`min-h-screen flex flex-col items-center justify-center mt-[-10%] md:mt-0 ${darkMode ? "bg-gray-900" : "bg-gray-50"
+        } p-4 sm:p-8`}
     >
       <div className="flex items-center justify-center text-lg sm:text-xl md:text-2xl font-bold bg-clip-text">
         <h2 className="mr-2 font-extrabold text-3xl">AgriChains</h2>
@@ -131,9 +132,8 @@ const Authentication = ({ darkMode }) => {
       </div>
 
       <div
-        className={`w-full mt-5 max-w-4xl rounded-lg shadow-lg overflow-hidden flex flex-col sm:flex-row relative ${
-          darkMode ? "bg-gray-800" : "bg-white"
-        }`}
+        className={`w-full mt-5 max-w-4xl rounded-lg shadow-lg overflow-hidden flex flex-col sm:flex-row relative ${darkMode ? "bg-gray-800" : "bg-white"
+          }`}
       >
         {/* Background Layer - Only for Desktop */}
         <motion.div
@@ -195,9 +195,8 @@ const Authentication = ({ darkMode }) => {
                 className="h-full flex flex-col justify-center text-white"
               >
                 <h2
-                  className={`text-3xl font-bold mb-4 ${
-                    darkMode ? "text-white" : "text-gray-900"
-                  }`}
+                  className={`text-3xl font-bold mb-4 ${darkMode ? "text-white" : "text-gray-900"
+                    }`}
                 >
                   Create Account
                 </h2>
@@ -205,9 +204,8 @@ const Authentication = ({ darkMode }) => {
                   <div className="mb-4 sm:mb-6">
                     <label
                       htmlFor="signupname"
-                      className={`block text-sm font-medium ${
-                        darkMode ? "text-gray-300" : "text-gray-700"
-                      } mb-2`}
+                      className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"
+                        } mb-2`}
                     >
                       Your Name
                     </label>
@@ -219,20 +217,18 @@ const Authentication = ({ darkMode }) => {
                       onChange={(e) =>
                         setUserData({ ...userData, username: e.target.value })
                       }
-                      className={`w-full px-4 py-3 rounded-lg border ${
-                        darkMode
+                      className={`w-full px-4 py-3 rounded-lg border ${darkMode
                           ? "bg-gray-700 border-gray-600 text-white"
                           : "border-gray-300 text-black"
-                      } focus:outline-none focus:ring-2 focus:ring-green-600`}
+                        } focus:outline-none focus:ring-2 focus:ring-green-600`}
                       required
                     />
                   </div>
                   <div className="mb-4 sm:mb-6">
                     <label
                       htmlFor="signupemail"
-                      className={`block text-sm font-medium ${
-                        darkMode ? "text-gray-300" : "text-gray-700"
-                      } mb-2`}
+                      className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"
+                        } mb-2`}
                     >
                       Your Email
                     </label>
@@ -244,20 +240,18 @@ const Authentication = ({ darkMode }) => {
                       onChange={(e) =>
                         setUserData({ ...userData, email: e.target.value })
                       }
-                      className={`w-full px-4 py-3 rounded-lg border ${
-                        darkMode
+                      className={`w-full px-4 py-3 rounded-lg border ${darkMode
                           ? "bg-gray-700 border-gray-600 text-white"
                           : "border-gray-300 text-black"
-                      } focus:outline-none focus:ring-2 focus:ring-green-600`}
+                        } focus:outline-none focus:ring-2 focus:ring-green-600`}
                       required
                     />
                   </div>
                   <div className="mb-4 sm:mb-6">
                     <label
                       htmlFor="signuppassword"
-                      className={`block text-sm font-medium ${
-                        darkMode ? "text-gray-300" : "text-gray-700"
-                      } mb-2`}
+                      className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"
+                        } mb-2`}
                     >
                       Password
                     </label>
@@ -270,11 +264,10 @@ const Authentication = ({ darkMode }) => {
                         onChange={(e) =>
                           setUserData({ ...userData, password: e.target.value })
                         }
-                        className={`w-full px-4 py-3 rounded-lg border ${
-                          darkMode
+                        className={`w-full px-4 py-3 rounded-lg border ${darkMode
                             ? "bg-gray-700 border-gray-600 text-white"
                             : "border-gray-300 text-black"
-                        } focus:outline-none focus:ring-2 focus:ring-green-600 pr-10`}
+                          } focus:outline-none focus:ring-2 focus:ring-green-600 pr-10`}
                         required
                         onFocus={() => setIsFieldFocus(true)} // Show the icon when input is focused
                         onBlur={() => setIsFieldFocus(false)} // Hide the icon when input loses focus
@@ -289,15 +282,13 @@ const Authentication = ({ darkMode }) => {
                         >
                           {showPassword ? (
                             <FaEyeSlash
-                              className={`${
-                                darkMode ? "text-gray-300" : "text-gray-500"
-                              }`}
+                              className={`${darkMode ? "text-gray-300" : "text-gray-500"
+                                }`}
                             />
                           ) : (
                             <FaEye
-                              className={`${
-                                darkMode ? "text-gray-300" : "text-gray-500"
-                              }`}
+                              className={`${darkMode ? "text-gray-300" : "text-gray-500"
+                                }`}
                             />
                           )}
                         </button>
@@ -307,9 +298,8 @@ const Authentication = ({ darkMode }) => {
                   <div className="mb-4 sm:mb-6">
                     <label
                       htmlFor="signupconfirmpassword"
-                      className={`block text-sm font-medium ${
-                        darkMode ? "text-gray-300" : "text-gray-700"
-                      } mb-2`}
+                      className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"
+                        } mb-2`}
                     >
                       Confirm Password
                     </label>
@@ -324,19 +314,17 @@ const Authentication = ({ darkMode }) => {
                           confirmPassword: e.target.value,
                         })
                       }
-                      className={`w-full px-4 py-3 rounded-lg border ${
-                        darkMode
+                      className={`w-full px-4 py-3 rounded-lg border ${darkMode
                           ? "bg-gray-700 border-gray-600 text-white"
                           : "border-gray-300 text-black"
-                      } focus:outline-none focus:ring-2 focus:ring-green-600`}
+                        } focus:outline-none focus:ring-2 focus:ring-green-600`}
                       required
                     />
                   </div>
                   <button
                     type="submit"
-                    className={`w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition-colors duration-300 ${
-                      isLoading ? "opacity-50 cursor-not-allowed" : ""
-                    }`}
+                    className={`w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition-colors duration-300 ${isLoading ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
                     disabled={isLoading}
                   >
                     {isLoading ? (
@@ -371,9 +359,8 @@ const Authentication = ({ darkMode }) => {
                   </button>
                   <div className="mt-4">
                     <p
-                      className={`${
-                        darkMode ? "text-gray-300" : "text-gray-600"
-                      }`}
+                      className={`${darkMode ? "text-gray-300" : "text-gray-600"
+                        }`}
                     >
                       Already have an account?{" "}
                       <button
@@ -404,9 +391,8 @@ const Authentication = ({ darkMode }) => {
                 transition={{ duration: 0.5 }}
               >
                 <h2
-                  className={`text-3xl font-bold mb-4 ${
-                    darkMode ? "text-white" : "text-gray-900"
-                  }`}
+                  className={`text-3xl font-bold mb-4 ${darkMode ? "text-white" : "text-gray-900"
+                    }`}
                 >
                   Sign In
                 </h2>
@@ -414,9 +400,8 @@ const Authentication = ({ darkMode }) => {
                   <div className="mb-4 sm:mb-6">
                     <label
                       htmlFor="email"
-                      className={`block text-sm font-medium ${
-                        darkMode ? "text-gray-300" : "text-gray-700"
-                      } mb-2`}
+                      className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"
+                        } mb-2`}
                     >
                       Email
                     </label>
@@ -428,20 +413,18 @@ const Authentication = ({ darkMode }) => {
                       onChange={(e) =>
                         setUserData({ ...userData, email: e.target.value })
                       }
-                      className={`w-full px-4 py-3 rounded-lg border ${
-                        darkMode
+                      className={`w-full px-4 py-3 rounded-lg border ${darkMode
                           ? "bg-gray-700 border-gray-600 text-white"
                           : "border-gray-300"
-                      } focus:outline-none focus:ring-2 focus:ring-green-600`}
+                        } focus:outline-none focus:ring-2 focus:ring-green-600`}
                       required
                     />
                   </div>
                   <div className="mb-4 sm:mb-6">
                     <label
                       htmlFor="password"
-                      className={`block text-sm font-medium ${
-                        darkMode ? "text-gray-300" : "text-gray-700"
-                      } mb-2`}
+                      className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"
+                        } mb-2`}
                     >
                       Password
                     </label>
@@ -454,11 +437,10 @@ const Authentication = ({ darkMode }) => {
                         onChange={(e) =>
                           setUserData({ ...userData, password: e.target.value })
                         }
-                        className={`w-full px-4 py-3 rounded-lg border ${
-                          darkMode
+                        className={`w-full px-4 py-3 rounded-lg border ${darkMode
                             ? "bg-gray-700 border-gray-600 text-white"
                             : "border-gray-300 text-black"
-                        } focus:outline-none focus:ring-2 focus:ring-green-600 pr-10`}
+                          } focus:outline-none focus:ring-2 focus:ring-green-600 pr-10`}
                         required
                         onFocus={() => setIsFieldFocus(true)} // Show the icon when input is focused
                         onBlur={() => setIsFieldFocus(false)} // Hide the icon when input loses focus
@@ -473,15 +455,13 @@ const Authentication = ({ darkMode }) => {
                         >
                           {showPassword ? (
                             <FaEyeSlash
-                              className={`${
-                                darkMode ? "text-gray-300" : "text-gray-500"
-                              }`}
+                              className={`${darkMode ? "text-gray-300" : "text-gray-500"
+                                }`}
                             />
                           ) : (
                             <FaEye
-                              className={`${
-                                darkMode ? "text-gray-300" : "text-gray-500"
-                              }`}
+                              className={`${darkMode ? "text-gray-300" : "text-gray-500"
+                                }`}
                             />
                           )}
                         </button>
@@ -490,9 +470,8 @@ const Authentication = ({ darkMode }) => {
                   </div>
                   <button
                     type="submit"
-                    className={`w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition-colors duration-300 ${
-                      isLoading ? "opacity-50 cursor-not-allowed" : ""
-                    }`}
+                    className={`w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition-colors duration-300 ${isLoading ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
                     disabled={isLoading}
                   >
                     {isLoading ? (
@@ -527,9 +506,8 @@ const Authentication = ({ darkMode }) => {
                   </button>
                   <div className="mt-4">
                     <p
-                      className={`${
-                        darkMode ? "text-gray-300" : "text-gray-600"
-                      }`}
+                      className={`${darkMode ? "text-gray-300" : "text-gray-600"
+                        }`}
                     >
                       Don't have an account?{" "}
                       <button
@@ -615,9 +593,8 @@ const Authentication = ({ darkMode }) => {
                   className="block sm:hidden"
                 >
                   <h2
-                    className={`text-3xl font-bold mb-4 ${
-                      darkMode ? "text-white" : "text-gray-900"
-                    }`}
+                    className={`text-3xl font-bold mb-4 ${darkMode ? "text-white" : "text-gray-900"
+                      }`}
                   >
                     Sign Up
                   </h2>
@@ -625,9 +602,8 @@ const Authentication = ({ darkMode }) => {
                     <div className="mb-4 sm:mb-6">
                       <label
                         htmlFor="name"
-                        className={`block text-sm font-medium ${
-                          darkMode ? "text-gray-300" : "text-gray-700"
-                        } mb-2`}
+                        className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"
+                          } mb-2`}
                       >
                         Your Name
                       </label>
@@ -639,20 +615,18 @@ const Authentication = ({ darkMode }) => {
                         onChange={(e) =>
                           setUserData({ ...userData, username: e.target.value })
                         }
-                        className={`w-full px-4 py-3 rounded-lg border ${
-                          darkMode
+                        className={`w-full px-4 py-3 rounded-lg border ${darkMode
                             ? "bg-gray-700 border-gray-600 text-white"
                             : "border-gray-300 text-black"
-                        } focus:outline-none focus:ring-2 focus:ring-green-600`}
+                          } focus:outline-none focus:ring-2 focus:ring-green-600`}
                         required
                       />
                     </div>
                     <div className="mb-4 sm:mb-6">
                       <label
                         htmlFor="email"
-                        className={`block text-sm font-medium ${
-                          darkMode ? "text-gray-300" : "text-gray-700"
-                        } mb-2`}
+                        className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"
+                          } mb-2`}
                       >
                         Your Email
                       </label>
@@ -664,20 +638,18 @@ const Authentication = ({ darkMode }) => {
                         onChange={(e) =>
                           setUserData({ ...userData, email: e.target.value })
                         }
-                        className={`w-full px-4 py-3 rounded-lg border ${
-                          darkMode
+                        className={`w-full px-4 py-3 rounded-lg border ${darkMode
                             ? "bg-gray-700 border-gray-600 text-white"
                             : "border-gray-300 text-black"
-                        } focus:outline-none focus:ring-2 focus:ring-green-600`}
+                          } focus:outline-none focus:ring-2 focus:ring-green-600`}
                         required
                       />
                     </div>
                     <div className="mb-4 sm:mb-6">
                       <label
                         htmlFor="password"
-                        className={`block text-sm font-medium ${
-                          darkMode ? "text-gray-300" : "text-gray-700"
-                        } mb-2`}
+                        className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"
+                          } mb-2`}
                       >
                         Password
                       </label>
@@ -693,11 +665,10 @@ const Authentication = ({ darkMode }) => {
                               password: e.target.value,
                             })
                           }
-                          className={`w-full px-4 py-3 rounded-lg border ${
-                            darkMode
+                          className={`w-full px-4 py-3 rounded-lg border ${darkMode
                               ? "bg-gray-700 border-gray-600 text-white"
                               : "border-gray-300"
-                          } focus:outline-none focus:ring-2 focus:ring-green-600 pr-10`}
+                            } focus:outline-none focus:ring-2 focus:ring-green-600 pr-10`}
                           required
                           onFocus={() => setIsFieldFocus(true)} // Show the icon when input is focused
                           onBlur={() => setIsFieldFocus(false)} // Hide the icon when input loses focus
@@ -712,15 +683,13 @@ const Authentication = ({ darkMode }) => {
                           >
                             {showPassword ? (
                               <FaEyeSlash
-                                className={`${
-                                  darkMode ? "text-gray-300" : "text-gray-500"
-                                }`}
+                                className={`${darkMode ? "text-gray-300" : "text-gray-500"
+                                  }`}
                               />
                             ) : (
                               <FaEye
-                                className={`${
-                                  darkMode ? "text-gray-300" : "text-gray-500"
-                                }`}
+                                className={`${darkMode ? "text-gray-300" : "text-gray-500"
+                                  }`}
                               />
                             )}
                           </button>
@@ -730,9 +699,8 @@ const Authentication = ({ darkMode }) => {
                     <div className="mb-4 sm:mb-6">
                       <label
                         htmlFor="confirmpassword"
-                        className={`block text-sm font-medium ${
-                          darkMode ? "text-gray-300" : "text-gray-700"
-                        } mb-2`}
+                        className={`block text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"
+                          } mb-2`}
                       >
                         Confirm Password
                       </label>
@@ -747,19 +715,17 @@ const Authentication = ({ darkMode }) => {
                             confirmPassword: e.target.value,
                           })
                         }
-                        className={`w-full px-4 py-3 rounded-lg border ${
-                          darkMode
+                        className={`w-full px-4 py-3 rounded-lg border ${darkMode
                             ? "bg-gray-700 border-gray-600 text-white"
                             : "border-gray-300 text-black"
-                        } focus:outline-none focus:ring-2 focus:ring-green-600`}
+                          } focus:outline-none focus:ring-2 focus:ring-green-600`}
                         required
                       />
                     </div>
                     <button
                       type="submit"
-                      className={`w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition-colors duration-300 ${
-                        isLoading ? "opacity-50 cursor-not-allowed" : ""
-                      }`}
+                      className={`w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition-colors duration-300 ${isLoading ? "opacity-50 cursor-not-allowed" : ""
+                        }`}
                       disabled={isLoading}
                     >
                       {isLoading ? (
@@ -795,9 +761,8 @@ const Authentication = ({ darkMode }) => {
 
                     <div className="mt-4">
                       <p
-                        className={`${
-                          darkMode ? "text-gray-300" : "text-gray-600"
-                        }`}
+                        className={`${darkMode ? "text-gray-300" : "text-gray-600"
+                          }`}
                       >
                         Already have an account?{" "}
                         <button
@@ -822,14 +787,12 @@ const Authentication = ({ darkMode }) => {
       {alertMessage && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div
-            className={`w-full max-w-sm mx-4 p-6 rounded-lg shadow-lg ${
-              darkMode ? "bg-gray-800" : "bg-white"
-            }`}
+            className={`w-full max-w-sm mx-4 p-6 rounded-lg shadow-lg ${darkMode ? "bg-gray-800" : "bg-white"
+              }`}
           >
             <h3
-              className={`text-xl font-bold mb-4 ${
-                darkMode ? "text-white" : "text-gray-900"
-              }`}
+              className={`text-xl font-bold mb-4 ${darkMode ? "text-white" : "text-gray-900"
+                }`}
             >
               {alertType === "success" ? "Success" : "Error"}
             </h3>
