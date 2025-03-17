@@ -8,6 +8,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import Container from "./components/Container.component";
+import Container2 from "./components/Container2.component";
 import heroImage from "./assets/BoardBanner.png";
 import Developers from "./components/TeamFUTURE.component";
 import Navbar from "./components/Navbar.component";
@@ -64,9 +65,8 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
 
   return (
     <div
-      className={`min-h-screen flex flex-col ${
-        darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
-      } `}
+      className={`min-h-screen flex flex-col ${darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
+        } `}
     >
       {/* Conditionally render Navbar for all routes except '/auth' */}
       {location.pathname !== "/auth" &&
@@ -98,9 +98,8 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
                   <div className="text-left mt-15 md:text-left md:w-1/2 md:pl-10 lg:pl-20">
                     {/* Heading */}
                     <h1
-                      className={`text-[25px] sm:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight ${
-                        darkMode ? "text-white" : "text-gray-900"
-                      } `}
+                      className={`text-[25px] sm:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight ${darkMode ? "text-white" : "text-gray-900"
+                        } `}
                     >
                       Welcome to{" "}
                       <span className="text-green-600">AgriChains</span>
@@ -108,20 +107,16 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
 
                     {/* Description */}
                     <p
-                      className={`text-sm text-left sm:text-base lg:text-lg max-w-[90%] md:max-w-[80%] md:mx-0 ${
-                        darkMode ? "text-gray-300" : "text-gray-600"
-                      } `}
+                      className={`text-sm text-left sm:text-base lg:text-lg max-w-[90%] md:max-w-[80%] md:mx-0 ${darkMode ? "text-gray-300" : "text-gray-600"
+                        } `}
                     >
-                      Discover the future of agriculture with AgriChains. Follow
-                      the steps below to get started and explore the platform's
-                      features.
+                      Step into the future of agriculture with AgriChains! Get started now and explore seamless farm-to-market tracking and secure transactions.
                     </p>
 
                     {/* Tagline */}
                     <p
-                      className={`mt-5 text-sm sm:text-[16px] text-left italic ${
-                        darkMode ? "text-gray-400" : "text-gray-500"
-                      } `}
+                      className={`mt-5 text-sm sm:text-[16px] text-left italic ${darkMode ? "text-gray-400" : "text-gray-500"
+                        } `}
                     >
                       — Cultivating trust, growing transparency
                     </p>
@@ -138,42 +133,12 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
                 </motion.div>
 
                 {/* Tutorial Components */}
-                <Container
-                  image="https://cdn.pixabay.com/photo/2021/05/26/13/49/bitcoin-6285239_1280.jpg"
-                  text="Step 1: Go to the website and sign up."
-                  position="left"
-                  darkMode={darkMode}
-                />
-                <Container
-                  image="https://cdn.pixabay.com/photo/2018/01/18/07/31/bitcoin-3089728_960_720.jpg"
-                  text="Step 2: Explore the features and tools available."
-                  position="right"
-                  darkMode={darkMode}
-                />
-                <Container
-                  image="https://cdn.pixabay.com/photo/2022/01/14/07/48/digitization-6936701_1280.jpg"
-                  text="Step 3: Customize your profile settings."
-                  position="left"
-                  darkMode={darkMode}
-                />
-                <Container
-                  image="https://cdn.pixabay.com/photo/2018/03/07/19/41/blockchain-3206918_1280.png"
-                  text="Step 4: Start using the platform to achieve your goals."
-                  position="right"
-                  darkMode={darkMode}
-                />
-                <Container
-                  image="https://cdn.pixabay.com/photo/2021/10/09/12/57/world-6694125_960_720.jpg"
-                  text="Step 5: Connect with other users and collaborate."
-                  position="left"
-                  darkMode={darkMode}
-                />
-                <Container
-                  image="https://cdn.pixabay.com/photo/2022/01/17/09/01/binary-6944162_1280.jpg"
-                  text="Step 6: Enjoy the full experience of the platform."
-                  position="right"
-                  darkMode={darkMode}
-                />
+                <div className={darkMode ? "dark" : ""}>
+                  <Container darkMode={darkMode} />
+                </div>
+              </div>
+              <div>
+                <Container2 darkMode={darkMode}/>
               </div>
 
               {/* Navigate Button */}
@@ -210,9 +175,8 @@ const AppContent = ({ darkMode, toggleDarkMode }) => {
                   className="text-center mt-40"
                 >
                   <h2
-                    className={`text-2xl md:text-4xl font-bold mb-4 sm:mb-8 ${
-                      darkMode ? "text-white" : "text-black"
-                    } `}
+                    className={`text-2xl md:text-4xl font-bold mb-4 sm:mb-8 ${darkMode ? "text-white" : "text-black"
+                      } `}
                   >
                     Meet the <span className="text-green-600">FUTURE</span> team
                   </h2>

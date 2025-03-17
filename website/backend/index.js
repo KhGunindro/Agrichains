@@ -9,7 +9,7 @@ import contact_routes from './routes/contact.routes.js'
 class ServerSetup {
     constructor() {
         this.PORT = 9000;
-        this.MONGODB_URL = process.env.MONGODB_URL; // cloud db
+        this.MONGODB_URL = process.env.LOCAL_MONGODB_URL; // cloud db
         // this.MONGODB_URL = process.env.LOCAL_MONGODB_URL; // local db
         this.ORIGIN = process.env.ORIGIN;
         this.ORIGIN2 = process.env.ORIGIN2;
