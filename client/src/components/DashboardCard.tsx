@@ -158,7 +158,19 @@ const DashboardCard = ({ product }: ProductCardProps) => {
     if (!roleActions) return null;
 
     return (
-      <></>
+      <div className="flex gap-2 flex-wrap">
+        {roleActions.map(({ action, label, disabled, variant, icon: Icon }) => (
+          <Button
+            key={action}
+            variant={variant as "default" | "link" | "secondary" | "destructive" | "outline" | "ghost"}
+            onClick={() => handleStageUpdate(action)}
+            disabled={disabled || isLoading}
+          >
+            <Icon className="w-4 h-4 mr-2" />
+            {label}
+          </Button>
+        ))}
+      </div>
     );
   };
 
@@ -171,7 +183,7 @@ const DashboardCard = ({ product }: ProductCardProps) => {
               {product.name}
             </CardTitle>
             <CardDescription className="text-sm text-muted-foreground">
-              Product ID: #{product.id}
+              Product ID: {product.id}
             </CardDescription>
           </div>
           <Badge 

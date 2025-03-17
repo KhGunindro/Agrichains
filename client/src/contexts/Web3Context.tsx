@@ -32,6 +32,8 @@ interface Web3ProviderProps {
   children: ReactNode;
 }
 
+const CONTRACT_ADDRESS = '0xA076FC58D96D1C2b5f5cea140328BB415B486d75';
+
 export const Web3Provider = ({ children }: Web3ProviderProps) => {
   const [web3, setWeb3] = useState<Web3 | null>(null);
   const [contract, setContract] = useState<any | null>(null);
@@ -44,7 +46,7 @@ export const Web3Provider = ({ children }: Web3ProviderProps) => {
 
   const initializeContract = async (web3Instance: Web3) => {
     try {
-      const response = await fetch('contracts/AgriSupplyChain.json');
+      const response = await fetch('contracts/AgriSupplyChain.sol/AgriSupplyChain.json');
       
       if (!response.ok) {
         throw new Error(`Failed to fetch contract ABI: ${response.status} ${response.statusText}`);
@@ -59,12 +61,12 @@ export const Web3Provider = ({ children }: Web3ProviderProps) => {
       if (!contractJSON.networks[networkId.toString()]) {
         throw new Error(`Contract not deployed on network ${networkId}`);
       }
-  
+
       const contractInstance = new web3Instance.eth.Contract(
         contractJSON.abi as AbiItem[],
-        contractJSON.networks[networkId.toString()].address
+        CONTRACT_ADDRESS
       );
-  
+
       setContract(contractInstance);
       setIsContractInitialized(true);
       return contractInstance;
@@ -78,8 +80,8 @@ export const Web3Provider = ({ children }: Web3ProviderProps) => {
   const checkNetwork = async (web3Instance: Web3) => {
     try {
       const chainId = await web3Instance.eth.getChainId();
-      if (Number(chainId) !== 1337) {
-        throw new Error('Please connect to Ganache network (ID 1337)');
+      if (Number(chainId) !== 11155111) {
+        throw new Error('Please connect to Sepolia network (ID 11155111)');
       }
     } catch (error) {
       console.error('Network check failed:', error);
