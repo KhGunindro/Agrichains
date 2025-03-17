@@ -68,7 +68,7 @@ const Transactions = () => {
       case 97: return 'https://testnet.bscscan.com/tx/';
       case 137: return 'https://polygonscan.com/tx/';
       case 80001: return 'https://mumbai.polygonscan.com/tx/';
-      default: return 'https://etherscan.io/tx/';
+      default: return 'https://sepolia.etherscan.io/tx/';
     }
   };
 
