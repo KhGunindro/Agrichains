@@ -136,7 +136,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               {product.name}
             </CardTitle>
             <CardDescription className="text-sm text-muted-foreground">
-              Product ID: #{product.id}
+              Product ID: {product.id}
             </CardDescription>
           </div>
           <Badge 
